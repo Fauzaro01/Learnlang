@@ -263,7 +263,7 @@ export default function NotificationBell() {
     <div className="relative">
       <button
         onClick={handleBellClick}
-        className="relative p-2 text-gray-700 hover:text-primary transition-colors"
+        className="relative p-2 text-gray-700 hover:text-primary transition-colors z-[60]"
       >
         <NotificationBellIcon hasUnread={unreadCount > 0} />
         {unreadCount > 0 && (
@@ -273,16 +273,29 @@ export default function NotificationBell() {
         )}
       </button>
 
-      {/* Notification Dropdown */}
+      {/* Close dropdown on outside click */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+        <div className="fixed inset-0 z-[55]" onClick={() => setIsOpen(false)} />
+      )}
+
+      {/* Notification Dropdown - fixed on mobile, absolute on desktop */}
+      {isOpen && (
+        <div className="fixed sm:absolute left-2 right-2 sm:left-auto sm:right-0 top-16 sm:top-auto sm:mt-2 w-auto sm:w-80 bg-white rounded-2xl sm:rounded-lg shadow-2xl sm:shadow-lg border-2 sm:border border-gray-200 z-[60]">
           {/* Header */}
-          <div className="px-4 py-3 border-b border-gray-100">
+          <div className="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
             <h3 className="font-semibold text-gray-900">Notifikasi</h3>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="sm:hidden p-1 text-gray-400 hover:text-gray-600 rounded-lg"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
 
           {/* Notifications List */}
-          <div className="max-h-96 overflow-y-auto">
+          <div className="max-h-[60vh] sm:max-h-96 overflow-y-auto">
             {isLoading ? (
               <div className="px-4 py-8 text-center text-sm text-gray-500">
                 Memuat notifikasi...
@@ -338,11 +351,6 @@ export default function NotificationBell() {
             </Link>
           </div>
         </div>
-      )}
-
-      {/* Close dropdown on outside click */}
-      {isOpen && (
-        <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
       )}
     </div>
   );

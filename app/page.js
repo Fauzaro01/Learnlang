@@ -253,30 +253,30 @@ export default function LandingPage() {
       {/* ==========================================
           1. HERO SECTION
          ========================================== */}
-      <section className="max-w-7xl mx-auto px-6 pt-8 pb-12 lg:pt-12 lg:pb-16">
-        <div className="grid lg:grid-cols-12 gap-16 items-center">
-          <div className="lg:col-span-7 text-center lg:text-left z-10 space-y-8">
-            <h1 className="text-5xl sm:text-7xl font-black text-gray-950 leading-[1.1] tracking-tight">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-8 lg:pt-12 lg:pb-16">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+
+          <div className="lg:col-span-7 text-center lg:text-left z-10 space-y-5 sm:space-y-8">
+            <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black text-gray-950 leading-[1.1] tracking-tight">
               Cara Pintar, Cepat & <br />
               <AnimatedText /> Belajar <br />
               Bahasa Inggris!
             </h1>
 
-            <p className="text-xl sm:text-2xl text-[#78909C] font-bold max-w-xl mx-auto lg:mx-0 leading-relaxed">
-              Platform interaktif yang menggabungkan asyiknya bermain game
-              dengan koreksi kecerdasan buatan (AI) secara instan.
+            <p className="text-base sm:text-xl lg:text-2xl text-[#78909C] font-bold max-w-xl mx-auto lg:mx-0 leading-relaxed">
+              Platform interaktif yang menggabungkan asyiknya bermain game dengan koreksi kecerdasan buatan (AI) secara instan.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start max-w-md">
-              <Link href={ctaHref} className="w-full">
-                <button className="w-full py-5 bg-[#6366F1] hover:bg-[#818CF8] text-white border-b-6 border-[#4338CA] rounded-2xl font-black text-xl duo-btn flex items-center justify-center gap-3 shadow-md">
-                  {ctaLabel}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
+              <Link href="/register" className="w-full">
+                <button className="w-full py-4 sm:py-5 bg-[#6366F1] hover:bg-[#818CF8] text-white border-b-6 border-[#4338CA] rounded-2xl font-black text-lg sm:text-xl duo-btn flex items-center justify-center gap-3 shadow-md">
+                  MULAI SEKARANG ➔
                 </button>
               </Link>
             </div>
           </div>
 
-          <div className="lg:col-span-5 z-10">
+          <div className="lg:col-span-5 z-10 hidden sm:block">
             <HeroMascotIllustration />
           </div>
         </div>
@@ -305,21 +305,17 @@ export default function LandingPage() {
       {/* ==========================================
           2. THE PLAYGROUND (Mini-game)
          ========================================== */}
-      <section className="bg-[#F0F7FF] border-y-2 border-gray-200 py-24 px-6 relative">
+      <section className="bg-[#F0F7FF] border-y-2 border-gray-200 py-12 sm:py-24 px-4 sm:px-6 relative">
         <div className="max-w-6xl mx-auto flex flex-col items-center">
-          <div className="text-center mb-12 flex flex-col items-center gap-2">
+
+          <div className="text-center mb-8 sm:mb-12 flex flex-col items-center gap-2">
             <GameControllerIcon />
-            <h2 className="text-3xl sm:text-5xl font-black text-gray-950 mb-2">
-              Coba Fitur Detektif AI!
-            </h2>
-            <p className="text-lg text-[#0288D1] font-bold">
-              Temukan 1 kata yang salah secara grammar, dan lihat penjelasan
-              cerdas dari AI
-            </p>
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-black text-gray-950 mb-2">Coba Fitur Detektif AI!</h2>
+            <p className="text-sm sm:text-lg text-[#0288D1] font-bold px-2">Temukan 1 kata yang salah secara grammar, dan lihat penjelasan cerdas dari AI</p>
           </div>
 
-          <div className="w-full grid lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-4 flex items-center justify-center">
+          <div className="w-full grid lg:grid-cols-12 gap-6 sm:gap-12 items-center">
+            <div className="lg:col-span-4 hidden lg:flex items-center justify-center">
               <AIMascot mood={mascotMood} />
             </div>
             <div className="lg:col-span-8 w-full">
@@ -332,16 +328,13 @@ export default function LandingPage() {
       {/* ==========================================
           3. VISUAL LEARNING TREE (Path Map)
          ========================================== */}
-      <section className="py-24 px-6 relative">
+      <section className="py-12 sm:py-24 px-4 sm:px-6 relative">
         <div className="max-w-6xl mx-auto flex flex-col items-center">
-          <div className="text-center mb-16 flex flex-col items-center gap-2">
+
+          <div className="text-center mb-8 sm:mb-16 flex flex-col items-center gap-2">
             <CompassIcon />
-            <h2 className="text-3xl sm:text-5xl font-black text-gray-950 mb-2">
-              Jalur Belajar Yang Rapi
-            </h2>
-            <p className="text-lg text-[#78909C] font-bold">
-              Klik tombol angka di peta untuk mengintip materi kuis kami!
-            </p>
+            <h2 className="text-2xl sm:text-3xl lg:text-5xl font-black text-gray-950 mb-2">Jalur Belajar Yang Rapi</h2>
+            <p className="text-sm sm:text-lg text-[#78909C] font-bold px-2">Klik tombol angka di peta untuk mengintip materi kuis kami!</p>
           </div>
 
           <InteractivePathMap />
@@ -353,90 +346,78 @@ export default function LandingPage() {
          ========================================== */}
 
       {/* Section A: Belajar Sambil Bermain (Tech battery themed) */}
-      <section className="bg-white border-y-2 border-gray-200 py-24 px-6 relative">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-16 items-center">
-          <div className="lg:col-span-5 order-last lg:order-first">
+      <section className="bg-white border-y-2 border-gray-200 py-12 sm:py-24 px-4 sm:px-6 relative">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+          <div className="lg:col-span-5 order-last lg:order-first hidden sm:block">
             <GamificationIllustration />
           </div>
           <div className="lg:col-span-7">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
               <TrophyBadgeIcon />
               <span className="text-xs font-black bg-[#E0E7FF] text-[#3730A3] px-3.5 py-1.5 rounded-full uppercase tracking-wider border-2 border-[#A5B4FC]">
                 Tantangan Seru
               </span>
             </div>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-950 mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-gray-950 mb-4 sm:mb-6 leading-tight">
               Kumpulkan Streak Harian & Jaga Sisa Energi!
             </h2>
-            <p className="text-lg text-[#78909C] font-bold leading-relaxed mb-6">
-              Di LearnLang, setiap kebiasaan baikmu akan dihargai. Jaga
-              keaktifan belajarmu dengan mengumpulkan Streak harian. Rasakan
-              ketegangan mempertahankan sisa daya baterai (energy) di setiap
-              kuis sulit!
+            <p className="text-base sm:text-lg text-[#78909C] font-bold leading-relaxed mb-4 sm:mb-6">
+              Di LearnLang, setiap kebiasaan baikmu akan dihargai. Jaga keaktifan belajarmu dengan mengumpulkan Streak harian. Rasakan ketegangan mempertahankan sisa daya baterai (energy) di setiap kuis sulit!
             </p>
-            <p className="text-base text-gray-500 font-bold leading-relaxed">
-              Sistem gamifikasi cerdas ini membuat belajar tidak lagi menjadi
-              beban, melainkan hiburan seru yang melatih fokusmu setiap harinya.
+            <p className="text-sm sm:text-base text-gray-500 font-bold leading-relaxed">
+              Sistem gamifikasi cerdas ini membuat belajar tidak lagi menjadi beban, melainkan hiburan seru yang melatih fokusmu setiap harinya.
             </p>
           </div>
         </div>
       </section>
 
       {/* Section B: AI Evaluator */}
-      <section className="py-24 px-6 relative">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-16 items-center">
+      <section className="py-12 sm:py-24 px-4 sm:px-6 relative">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
           <div className="lg:col-span-7">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
               <RobotBadgeIcon />
               <span className="text-xs font-black bg-[#E1F5FE] text-[#0277BD] px-3.5 py-1.5 rounded-full uppercase tracking-wider border-2 border-[#81D4FA]">
                 Teknologi Cerdas
               </span>
             </div>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-950 mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-gray-950 mb-4 sm:mb-6 leading-tight">
               Evaluasi AI Instan & Penjelasan Super Detail
             </h2>
-            <p className="text-lg text-[#78909C] font-bold leading-relaxed mb-6">
-              Salah menyusun kalimat bahasa Inggris? Tenang! Sistem kecerdasan
-              buatan (AI) kami akan langsung memeriksa letak kesalahanmu secara
-              detail dan memberikan saran perbaikan grammar yang tepat.
+            <p className="text-base sm:text-lg text-[#78909C] font-bold leading-relaxed mb-4 sm:mb-6">
+              Salah menyusun kalimat bahasa Inggris? Tenang! Sistem kecerdasan buatan (AI) kami akan langsung memeriksa letak kesalahanmu secara detail dan memberikan saran perbaikan grammar yang tepat.
             </p>
-            <p className="text-base text-gray-500 font-bold leading-relaxed">
-              Bukan cuma menyalahkan, AI kami menjelaskan struktur kalimat yang
-              benar sehingga kamu bisa belajar dari kesalahan secara mendalam
-              dan cepat pintar.
+            <p className="text-sm sm:text-base text-gray-500 font-bold leading-relaxed">
+              Bukan cuma menyalahkan, AI kami menjelaskan struktur kalimat yang benar sehingga kamu bisa belajar dari kesalahan secara mendalam dan cepat pintar.
             </p>
           </div>
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 hidden sm:block">
             <AIReviewIllustration />
           </div>
         </div>
       </section>
 
       {/* Section C: Leaderboard */}
-      <section className="bg-white border-y-2 border-gray-200 py-24 px-6 relative">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-16 items-center">
-          <div className="lg:col-span-5 order-last lg:order-first">
+      <section className="bg-white border-y-2 border-gray-200 py-12 sm:py-24 px-4 sm:px-6 relative">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
+          <div className="lg:col-span-5 order-last lg:order-first hidden sm:block">
             <LeaderboardIllustration />
           </div>
           <div className="lg:col-span-7">
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
               <CrownBadgeIcon />
               <span className="text-xs font-black bg-[#FFFDE7] text-[#F57F17] px-3.5 py-1.5 rounded-full uppercase tracking-wider border-2 border-[#FFF59D]">
                 Sosial & Kompetisi
               </span>
             </div>
-            <h2 className="text-4xl sm:text-5xl font-black text-gray-950 mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black text-gray-950 mb-4 sm:mb-6 leading-tight">
               Kompetisi Sehat di Papan Peringkat Global
             </h2>
-            <p className="text-lg text-[#78909C] font-bold leading-relaxed mb-6">
-              Kumpulkan poin dari setiap penyelesaian pelajaran dan raih
-              peringkat teratas di papan klasemen! Diskusi terbuka di forum kian
-              mempermudah kamu bertukar tips dan trik belajar bersama pelajar
-              lainnya.
+            <p className="text-base sm:text-lg text-[#78909C] font-bold leading-relaxed mb-4 sm:mb-6">
+              Kumpulkan poin dari setiap penyelesaian pelajaran dan raih peringkat teratas di papan klasemen! Diskusi terbuka di forum kian mempermudah kamu bertukar tips dan trik belajar bersama pelajar lainnya.
             </p>
-            <p className="text-base text-gray-500 font-bold leading-relaxed">
-              Dengan interaksi sosial yang dinamis, motivasi belajarmu akan
-              terus terjaga bersama komunitas yang suportif.
+            <p className="text-sm sm:text-base text-gray-500 font-bold leading-relaxed">
+              Dengan interaksi sosial yang dinamis, motivasi belajarmu akan terus terjaga bersama komunitas yang suportif.
             </p>
           </div>
         </div>
@@ -445,16 +426,12 @@ export default function LandingPage() {
       {/* ==========================================
           5. FUN TESTIMONIALS (Premium hovering cards)
          ========================================== */}
-      <section className="py-24 px-6">
+      <section className="py-12 sm:py-24 px-4 sm:px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16 flex flex-col items-center gap-2">
+          <div className="text-center mb-8 sm:mb-16 flex flex-col items-center gap-2">
             <HeartBadgeIcon />
-            <h2 className="text-4xl font-black text-gray-950 mb-2">
-              Disukai Banyak Pelajar Seru
-            </h2>
-            <p className="text-lg text-[#78909C] font-bold">
-              Inilah pengalaman asyik mereka yang sudah belajar bersama kami.
-            </p>
+            <h2 className="text-2xl sm:text-4xl font-black text-gray-950 mb-2">Disukai Banyak Pelajar Seru</h2>
+            <p className="text-sm sm:text-lg text-[#78909C] font-bold px-2">Inilah pengalaman asyik mereka yang sudah belajar bersama kami.</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -537,8 +514,8 @@ export default function LandingPage() {
       {/* ==========================================
           6. MASSIVE BOLD CTA
          ========================================== */}
-      <section className="max-w-5xl mx-auto px-6 py-12">
-        <div className="bg-gradient-to-r from-[#6366F1] to-[#818CF8] rounded-[2.5rem] p-12 text-center border-4 border-b-12 border-[#4338CA] shadow-md relative overflow-hidden">
+      <section className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div className="bg-gradient-to-r from-[#6366F1] to-[#818CF8] rounded-2xl sm:rounded-[2.5rem] p-6 sm:p-12 text-center border-4 border-b-12 border-[#4338CA] shadow-md relative overflow-hidden">
           <div className="relative z-10 flex flex-col items-center">
             {/* Mascot header inside CTA */}
             <motion.svg
@@ -604,16 +581,13 @@ export default function LandingPage() {
               />
               <circle cx="80" cy="15" r="8" fill="#FBBF24" />
             </motion.svg>
-            <h2 className="text-4xl sm:text-6xl font-black text-white mb-6">
-              Kuasai Bahasa dengan AI! 🚀
-            </h2>
-            <p className="text-xl text-[#F1FFF8] font-bold mb-10 max-w-xl mx-auto">
-              Daftar gratis selamanya. Dapatkan akses penuh ke sistem koreksi AI
-              sekarang juga!
+            <h2 className="text-2xl sm:text-4xl lg:text-6xl font-black text-white mb-4 sm:mb-6">Kuasai Bahasa dengan AI! 🚀</h2>
+            <p className="text-base sm:text-xl text-[#F1FFF8] font-bold mb-6 sm:mb-10 max-w-xl mx-auto">
+              Daftar gratis selamanya. Dapatkan akses penuh ke sistem koreksi AI sekarang juga!
             </p>
-            <Link href={ctaHref}>
-              <button className="px-12 py-5 bg-white text-[#6366F1] border-b-6 border-gray-300 hover:border-gray-400 rounded-2xl font-black text-2xl active:translate-y-[4px] active:border-b-0 shadow-lg">
-                {session ? "LANJUT BELAJAR! 🚀" : "DAFTAR SEKARANG! 🚀"}
+            <Link href="/register">
+              <button className="px-8 sm:px-12 py-4 sm:py-5 bg-white text-[#6366F1] border-b-6 border-gray-300 hover:border-gray-400 rounded-2xl font-black text-lg sm:text-2xl active:translate-y-[4px] active:border-b-0 shadow-lg">
+                DAFTAR SEKARANG! 🚀
               </button>
             </Link>
           </div>
@@ -623,8 +597,8 @@ export default function LandingPage() {
       {/* ==========================================
           7. PLAYFUL FOOTER
          ========================================== */}
-      <footer className="bg-white border-t-2 border-gray-200 pt-16 pb-8 px-6 mt-16">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-12">
+      <footer className="bg-white border-t-2 border-gray-200 pt-10 sm:pt-16 pb-8 px-4 sm:px-6 mt-8 sm:mt-16">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-12 mb-8 sm:mb-12">
           <div className="md:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4 group">
               <svg

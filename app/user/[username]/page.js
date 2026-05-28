@@ -65,6 +65,15 @@ const getAchievementStyle = (badgeColor) => {
   return map[badgeColor] || "bg-blue-50 border-blue-300 text-blue-700";
 };
 
+const getActivityStyle = (method) => {
+  if (!method) return { icon: "solar:book-open-bold", bg: "bg-indigo-100", text: "text-indigo-500" };
+  const m = method.toLowerCase();
+  if (m.includes("vocab")) return { icon: "fluent-emoji:books", bg: "bg-indigo-100", text: "text-indigo-500" };
+  if (m.includes("listen")) return { icon: "fluent-emoji:headphone", bg: "bg-blue-100", text: "text-blue-500" };
+  if (m.includes("grammar")) return { icon: "fluent-emoji:pencil", bg: "bg-amber-100", text: "text-amber-500" };
+  return { icon: "solar:book-open-bold", bg: "bg-indigo-100", text: "text-indigo-500" };
+};
+
 // ─── Stat Card ───────────────────────────────────────────────
 
 function StatCard({
@@ -551,7 +560,7 @@ export default function PublicProfilePage() {
                     </div>
                     <div className="h-3 rounded-full bg-gray-100">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-emerald-500 transition-all duration-700"
+                        className="h-full rounded-full bg-blue-600 transition-all duration-700"
                         style={{
                           width: `${user.achievementSummary.percentage || 0}%`,
                         }}
@@ -645,16 +654,18 @@ export default function PublicProfilePage() {
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {user.recentActivity.map((activity, idx) => (
+                    {user.recentActivity.map((activity, idx) => {
+                      const style = getActivityStyle(activity.methodLabel || activity.method);
+                      return (
                       <div
                         key={idx}
                         className="flex items-center justify-between p-3 bg-gray-50 rounded-2xl border-2 border-b-4 border-gray-100"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-indigo-100 flex items-center justify-center shrink-0">
+                          <div className={`w-9 h-9 rounded-xl ${style.bg} flex items-center justify-center shrink-0`}>
                             <Icon
-                              icon="solar:book-open-bold"
-                              className="text-indigo-500 text-lg"
+                              icon={style.icon}
+                              className={`${style.text} text-lg`}
                             />
                           </div>
                           <div>
@@ -687,7 +698,7 @@ export default function PublicProfilePage() {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    )})}
                   </div>
                 )}
               </SectionCard>

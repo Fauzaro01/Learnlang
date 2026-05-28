@@ -128,13 +128,13 @@ export default function Navbar() {
 
   return (
     <header className="bg-white/90 backdrop-blur-md border-b-4 border-gray-200 sticky top-0 z-50 font-[family-name:var(--font-nunito)] transition-all">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-center h-20">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6">
+        <div className="flex justify-between items-center h-16 sm:h-20">
           
           {/* Logo (Duolingo Style: Cute 3D block) */}
-          <Link href={"/"} className="flex items-center gap-3 group">
+          <Link href={"/"} className="flex items-center gap-2 sm:gap-3 group">
             <MascotLogo />
-            <span className="text-2xl font-black text-gray-900 tracking-tight">
+            <span className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">
               Lern<span className="text-[#6366F1]">Lang</span>
             </span>
           </Link>
@@ -219,10 +219,6 @@ export default function Navbar() {
 
                   <DropdownMenuItem asChild className="rounded-xl hover:bg-[#E1F5FE] focus:bg-[#E1F5FE] cursor-pointer font-black text-gray-700 mb-1">
                     <Link href="/quiz"><FileText className="mr-2 h-4 w-4 text-[#1cb0f6]" /> Quiz & Game</Link>
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem asChild className="rounded-xl hover:bg-amber-50 focus:bg-amber-50 cursor-pointer font-black text-gray-700 mb-1">
-                    <Link href="/history"><History className="mr-2 h-4 w-4 text-amber-500" /> Riwayat Belajar</Link>
                   </DropdownMenuItem>
 
                   <DropdownMenuItem asChild className="rounded-xl hover:bg-[#F9F0FF] focus:bg-[#F9F0FF] cursor-pointer font-black text-gray-700 mb-2">

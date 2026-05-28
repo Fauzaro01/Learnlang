@@ -143,7 +143,7 @@ const GrammarIcon = () => (
 const methods = [
   {
     key: "vocabulary",
-    title: "Kosa Kata",
+    title: "Vocabulary",
     subtitle: "Rekomendasi",
     description:
       "Perkaya pembendaharaan kata harianmu dengan kartu interaktif yang seru.",
@@ -154,7 +154,7 @@ const methods = [
   },
   {
     key: "listening",
-    title: "Pendengaran",
+    title: "Listening",
     subtitle: "Fokus Audio",
     description:
       "Latih telingamu menangkap intonasi dan pengucapan langsung dari native.",
@@ -165,7 +165,7 @@ const methods = [
   },
   {
     key: "grammar",
-    title: "Tata Bahasa",
+    title: "Grammar",
     subtitle: "Struktur",
     description:
       "Susun kalimat yang presisi tanpa takut salah dengan panduan interaktif.",
