@@ -200,7 +200,7 @@ export async function POST(req, { params }) {
       },
     });
 
-    const earnedXP = session.userId ? 10 : 0;
+    const earnedXP = session.userId ? Math.max(0, Math.round((correctCount / session.total) * 10)) : 0;
 
     // Optionally create an activity record for completed learning session
     if (session.userId) {
