@@ -511,6 +511,7 @@ const AKUN = [
 const MOBILE_NAV = [
   MENU_UTAMA[0], // Belajar
   MENU_UTAMA[1], // Game Seru
+  MENU_UTAMA[2], // Artikel (Blog)
   SOSIAL_KOMPETISI[0], // Diskusi
   SOSIAL_KOMPETISI[1], // Chats AI
   SOSIAL_KOMPETISI[2], // Cari Teman
