@@ -9,6 +9,8 @@ async function seedUsers(prisma) {
     update: {
       username: "admin",
       xp: 5000,
+      energy: 5,
+      energyNextRefillAt: null,
     },
     create: {
       name: "Admin LernLang",
@@ -18,9 +20,9 @@ async function seedUsers(prisma) {
       bio: "Administrator platform LernLang",
       role: "ADMIN",
       xp: 5000,
+      energy: 5,
     },
   });
-
   console.log(`✅ Admin user: ${admin.email}`);
 
   const users = [];
@@ -31,6 +33,8 @@ async function seedUsers(prisma) {
       username: "budi_santoso",
       bio: "Sedang belajar bahasa Inggris untuk karir",
       xp: 120,
+      energy: 5,
+      energyNextRefillAt: null,
     },
     {
       name: "Siti Nurhaliza",
@@ -38,6 +42,8 @@ async function seedUsers(prisma) {
       username: "siti_n",
       bio: "Pelajar bahasa Inggris yang antusias",
       xp: 260,
+      energy: 5,
+      energyNextRefillAt: null,
     },
     {
       name: "Andi Prasetya",
@@ -45,6 +51,8 @@ async function seedUsers(prisma) {
       username: "andi_p",
       bio: "Suka tantangan terjemahan",
       xp: 480,
+      energy: 5,
+      energyNextRefillAt: null,
     },
     {
       name: "Dewi Lestari",
@@ -52,6 +60,8 @@ async function seedUsers(prisma) {
       username: "dewi_lestari",
       bio: "Belajar bahasa Inggris setiap hari",
       xp: 780,
+      energy: 5,
+      energyNextRefillAt: null,
     },
     {
       name: "Rizky Hidayat",
@@ -59,13 +69,21 @@ async function seedUsers(prisma) {
       username: "rizky_h",
       bio: "English learner 🇬🇧",
       xp: 1050,
+      energy: 5,
+      energyNextRefillAt: null,
     },
   ];
 
   for (const u of userSeeds) {
     const user = await prisma.user.upsert({
       where: { email: u.email },
-      update: { username: u.username, bio: u.bio, xp: u.xp },
+      update: {
+        username: u.username,
+        bio: u.bio,
+        xp: u.xp,
+        energy: u.energy,
+        energyNextRefillAt: u.energyNextRefillAt,
+      },
       create: {
         name: u.name,
         email: u.email,
@@ -74,6 +92,8 @@ async function seedUsers(prisma) {
         bio: u.bio,
         role: "USER",
         xp: u.xp,
+        energy: u.energy,
+        energyNextRefillAt: u.energyNextRefillAt,
       },
     });
     users.push(user);

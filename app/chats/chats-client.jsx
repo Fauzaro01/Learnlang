@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import ChatWindow from "@/components/ChatWindow";
 import FriendsList from "@/components/FriendsList";
+import ArgaAIChat from "@/components/ArgaAIChat";
 import { motion } from "framer-motion";
 
 // ==================================================
@@ -12,17 +13,39 @@ import { motion } from "framer-motion";
 // ==================================================
 
 const SparkleIcon = () => (
-  <svg className="w-4 h-4 text-yellow-300 animate-pulse" viewBox="0 0 16 16" fill="none">
-    <path d="M8 0L9.5 5.5L15 7L9.5 8.5L8 14L6.5 8.5L1 7L6.5 5.5L8 0Z" fill="currentColor" />
+  <svg
+    className="w-4 h-4 text-yellow-300 animate-pulse"
+    viewBox="0 0 16 16"
+    fill="none"
+  >
+    <path
+      d="M8 0L9.5 5.5L15 7L9.5 8.5L8 14L6.5 8.5L1 7L6.5 5.5L8 0Z"
+      fill="currentColor"
+    />
   </svg>
 );
 
 const ChatBubbleIllustration = () => (
   <svg className="w-16 h-16 drop-shadow-md" viewBox="0 0 80 80" fill="none">
     {/* Background shape */}
-    <rect x="15" y="15" width="50" height="50" rx="16" fill="#818CF8" stroke="#312E81" strokeWidth="4" />
+    <rect
+      x="15"
+      y="15"
+      width="50"
+      height="50"
+      rx="16"
+      fill="#818CF8"
+      stroke="#312E81"
+      strokeWidth="4"
+    />
     {/* Tail */}
-    <path d="M25 61l-10 10V61H25z" fill="#818CF8" stroke="#312E81" strokeWidth="4" strokeLinejoin="round" />
+    <path
+      d="M25 61l-10 10V61H25z"
+      fill="#818CF8"
+      stroke="#312E81"
+      strokeWidth="4"
+      strokeLinejoin="round"
+    />
     {/* White panel inside */}
     <rect x="25" y="25" width="30" height="30" rx="8" fill="white" />
     {/* Dots */}
@@ -33,9 +56,25 @@ const ChatBubbleIllustration = () => (
 );
 
 const EmptyChatIcon = () => (
-  <svg className="w-20 h-20 mx-auto mb-4 drop-shadow-md" viewBox="0 0 80 80" fill="none">
-    <circle cx="40" cy="40" r="32" fill="#EEF2FF" stroke="#818CF8" strokeWidth="3" />
-    <path d="M25 45c0-6 7-10 15-10s15 4 15 10-7 10-15 10c-2 0-4.5-.5-6-1.5L25 58l1.5-6.5c-1.5-1.5-1.5-3-1.5-6.5z" fill="white" stroke="#4F46E5" strokeWidth="2.5" />
+  <svg
+    className="w-20 h-20 mx-auto mb-4 drop-shadow-md"
+    viewBox="0 0 80 80"
+    fill="none"
+  >
+    <circle
+      cx="40"
+      cy="40"
+      r="32"
+      fill="#EEF2FF"
+      stroke="#818CF8"
+      strokeWidth="3"
+    />
+    <path
+      d="M25 45c0-6 7-10 15-10s15 4 15 10-7 10-15 10c-2 0-4.5-.5-6-1.5L25 58l1.5-6.5c-1.5-1.5-1.5-3-1.5-6.5z"
+      fill="white"
+      stroke="#4F46E5"
+      strokeWidth="2.5"
+    />
     <circle cx="34" cy="45" r="2" fill="#4F46E5" />
     <circle cx="40" cy="45" r="2" fill="#4F46E5" />
     <circle cx="46" cy="45" r="2" fill="#4F46E5" />
@@ -51,6 +90,25 @@ export default function ChatsClient({ initialUserId = null }) {
   const [selectedFriendId, setSelectedFriendId] = useState(null);
   const [conversations, setConversations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const ARGA_AI_ID = "__arga_ai__";
+  const argaConversation = {
+    friendId: ARGA_AI_ID,
+    friend: {
+      id: ARGA_AI_ID,
+      name: "Arga AI",
+      username: "arga_ai",
+      avatar: null,
+      isOnline: true,
+      isTyping: false,
+    },
+    lastMessage: {
+      content: "Siap bantu grammar, latihan, dan koreksi kalimatmu.",
+      createdAt: new Date().toISOString(),
+      senderId: ARGA_AI_ID,
+    },
+    unreadCount: 0,
+  };
 
   useEffect(() => {
     if (session === null) {
@@ -122,14 +180,12 @@ export default function ChatsClient({ initialUserId = null }) {
           unreadCount: item.unreadCount,
         }));
 
-      const mapped = [...merged, ...conversationOnly];
+      const mapped = [argaConversation, ...merged, ...conversationOnly];
 
       setConversations(mapped);
 
       if (initialUserId) {
         setSelectedFriendId(initialUserId);
-      } else if (mapped.length > 0) {
-        setSelectedFriendId((prev) => prev || mapped[0].friendId);
       }
     } catch (err) {
       console.error("Failed to load conversations:", err);
@@ -144,8 +200,9 @@ export default function ChatsClient({ initialUserId = null }) {
 
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-white relative w-full font-[family-name:var(--font-nunito)]">
-      <style dangerouslySetInnerHTML={{
-        __html: `
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         .cloud-bg {
           position: absolute;
           background: white;
@@ -165,7 +222,9 @@ export default function ChatsClient({ initialUserId = null }) {
           transform: translateY(4px);
           border-bottom-width: 0px;
         }
-      `}} />
+      `,
+        }}
+      />
 
       {/* Cloud Decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -174,7 +233,6 @@ export default function ChatsClient({ initialUserId = null }) {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6 relative z-10">
-
         {/* ── Hero Banner — Gamified ── */}
         <motion.section
           initial={{ opacity: 0, y: -20 }}
@@ -190,10 +248,11 @@ export default function ChatsClient({ initialUserId = null }) {
             <div className="max-w-2xl flex items-center justify-between gap-6">
               <div>
                 <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-4 drop-shadow-md leading-tight">
-                  Chat Real-Time!
+                  Chit Chat!
                 </h1>
                 <p className="text-lg sm:text-xl text-white/90 font-bold leading-relaxed max-w-xl">
-                  Diskusikan latihan harianmu, saling kirim koreksi bahasa Inggris, atau sekadar menyapa teman barumu.
+                  Diskusikan latihan harianmu, kirim pesan ke teman, atau buka
+                  Arga AI untuk latihan dan koreksi instan.
                 </p>
               </div>
               <div className="hidden sm:block">
@@ -203,13 +262,20 @@ export default function ChatsClient({ initialUserId = null }) {
 
             <div className="flex flex-wrap gap-4 mt-2">
               {[
-                ["Online", "Koneksi Cepat"],
+                ["Arga AI", "Asisten Pribadimu"],
                 ["Personal", "Pesan Pribadi"],
                 ["Aman", "100% Terenkripsi"],
               ].map(([value, label]) => (
-                <div key={label} className="rounded-2xl border-4 border-[#312E81] bg-white text-[#312E81] px-5 py-3 shadow-[0_4px_0_#312E81] transform hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all cursor-default">
-                  <div className="text-xl font-black leading-none mb-1">{value}</div>
-                  <div className="text-[10px] font-bold opacity-80 uppercase tracking-widest">{label}</div>
+                <div
+                  key={label}
+                  className="rounded-2xl border-4 border-[#312E81] bg-white text-[#312E81] px-5 py-3 shadow-[0_4px_0_#312E81] transform hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all cursor-default"
+                >
+                  <div className="text-xl font-black leading-none mb-1">
+                    {value}
+                  </div>
+                  <div className="text-[10px] font-bold opacity-80 uppercase tracking-widest">
+                    {label}
+                  </div>
                 </div>
               ))}
             </div>
@@ -218,7 +284,6 @@ export default function ChatsClient({ initialUserId = null }) {
 
         {/* ── Main Chat Interface with Chunky Border ── */}
         <div className="flex min-h-0 h-[600px] bg-white flex-col md:flex-row border-4 border-b-8 border-gray-200 rounded-[32px] overflow-hidden shadow-xl relative z-10">
-          
           {/* Mobile responsive toggle header */}
           <div className="md:hidden flex items-center justify-between px-4 py-3 border-b-4 border-gray-200 bg-white">
             <h2 className="text-lg font-black text-gray-900">Pesan Masuk</h2>
@@ -252,7 +317,9 @@ export default function ChatsClient({ initialUserId = null }) {
           <div
             className={`${isSidebarOpen ? "hidden md:block" : "block"} min-h-0 flex-1 bg-gray-50/50 overflow-hidden`}
           >
-            {selectedFriendId ? (
+            {selectedFriendId === ARGA_AI_ID ? (
+              <ArgaAIChat />
+            ) : selectedFriendId ? (
               <ChatWindow
                 friendId={selectedFriendId}
                 friend={
@@ -266,17 +333,18 @@ export default function ChatsClient({ initialUserId = null }) {
               <div className="flex items-center justify-center h-full text-gray-500">
                 <div className="text-center p-8 max-w-sm">
                   <EmptyChatIcon />
-                  <p className="text-xl font-black text-gray-900 mb-2">Pilih Teman Belajar</p>
+                  <p className="text-xl font-black text-gray-900 mb-2">
+                    Pilih Teman Belajar
+                  </p>
                   <p className="text-sm font-bold text-gray-400">
-                    Mulai obrolan seru untuk mempraktikkan kosakata barumu hari ini!
+                    Mulai obrolan seru untuk mempraktikkan kosakata barumu hari
+                    ini!
                   </p>
                 </div>
               </div>
             )}
           </div>
-
         </div>
-
       </div>
     </div>
   );
