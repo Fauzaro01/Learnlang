@@ -1,0 +1,42 @@
+# SEO: robots.txt for LernLang
+# Allow all bots to crawl public pages, block private/admin sections
+
+User-agent: *
+Allow: /
+Allow: /blogs
+Allow: /blogs/
+Allow: /learn/
+Allow: /leaderboard
+Allow: /quiz
+Allow: /about
+Allow: /contact
+
+# Block private/admin sections from search engines
+Disallow: /admin/
+Disallow: /api/
+Disallow: /profile/
+Disallow: /chats/
+Disallow: /diskusi/
+Disallow: /friends/
+Disallow: /notifications/
+Disallow: /login
+Disallow: /register
+
+# Specific bot instructions
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Point to sitemap
+Sitemap: https://learnlang.com/sitemap.xml
+
+# Crawl delay to prevent server overload (2 seconds between requests)
+Crawl-delay: 2
+
+# Request rate (for compatible bots)
+Request-rate: 1/2s

@@ -20,8 +20,43 @@ const nunito = Nunito({
 });
 
 export const metadata = {
-  title: "LernLang - Belajar Bahasa Inggris",
-  description: "Aplikasi belajar bahasa Inggris dengan AI evaluation",
+  title: "LernLang - Belajar Bahasa Inggris Interaktif & AI Correction",
+  description:
+    "Platform pembelajaran bahasa Inggris interaktif dengan AI evaluation, gamification, dan community learning. Belajar grammar, vocabulary, pronunciation dengan cara yang menyenangkan.",
+  keywords: [
+    "belajar bahasa inggris",
+    "english learning",
+    "AI correction",
+    "grammar checker",
+    "english app",
+    "vocabulary",
+  ],
+  authors: [{ name: "LernLang Team" }],
+  creator: "LernLang",
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: "https://learnlang.web.id",
+    title: "LernLang - Belajar Bahasa Inggris Interaktif",
+    description:
+      "Platform pembelajaran bahasa Inggris dengan AI evaluation dan gamification",
+    siteName: "LernLang",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "LernLang - Belajar Bahasa Inggris",
+    description: "Platform pembelajaran interaktif dengan AI correction",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+  },
+  alternates: {
+    canonical: "https://learnlang.web.id",
+  },
 };
 
 export default function RootLayout({ children }) {
