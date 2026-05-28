@@ -100,6 +100,12 @@ export default function TakeQuizPage() {
     setAnswers((prev) => ({ ...prev, [questionId]: optionId }));
     setCorrect(isRight);
     setRevealed(true);
+    
+    if (isRight) {
+      new Audio('/correct.mp3').play().catch(e => console.error("Error playing audio", e));
+    } else {
+      new Audio('/incorrect.mp3').play().catch(e => console.error("Error playing audio", e));
+    }
   };
 
   const handleNext = () => {
@@ -133,8 +139,14 @@ export default function TakeQuizPage() {
         body: JSON.stringify({ answers }),
       });
       if (res.ok) {
-        setResult(await res.json());
+        const data = await res.json();
+        setResult(data);
         toast.success("Quiz selesai!");
+        if (data.percentage >= 60) {
+          new Audio('/Diatasratarata.mp3').play().catch(e => console.error("Error playing audio", e));
+        } else {
+          new Audio('/Dibawahratarata.mp3').play().catch(e => console.error("Error playing audio", e));
+        }
       } else toast.error("Gagal mengirim jawaban");
     } catch {
       toast.error("Gagal mengirim jawaban");

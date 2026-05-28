@@ -3,6 +3,8 @@
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Footer from "@/components/Footer";
+
 
 // ── Custom hand-crafted SVG icons ──────────────────────────────
 const IconBrain   = () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>;
@@ -301,19 +303,7 @@ export default function AboutPage() {
       </section>
 
       {/* ─── Footer ────────────────────────── */}
-      <footer className="border-t border-gray-100 py-10 px-6">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm font-bold text-gray-400">
-            © 2025 <span className="text-[#6366F1] font-black">LearnLang</span> · Dibuat dengan ❤️ untuk Indonesia
-          </p>
-          <div className="flex gap-6 text-sm font-bold text-gray-400">
-            {[["Kuis","/quiz"],["Diskusi","/diskusi"],["Blog","/blogs"],["Kontak","/contact"]].map(([label, href]) => (
-              <Link key={href} href={href} className="hover:text-[#6366F1] transition-colors">{label}</Link>
-            ))}
-          </div>
-        </div>
-      </footer>
-
+      <Footer />
     </div>
   );
 }

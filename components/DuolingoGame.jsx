@@ -28,9 +28,11 @@ export default function DuolingoGame({ onResult }) {
     if (wordObj.isError) {
       setGameState("correct");
       onResult("happy");
+      new Audio('/correct.mp3').play().catch(e => console.error("Error playing audio", e));
     } else {
       setGameState("wrong");
       onResult("wrong");
+      new Audio('/incorrect.mp3').play().catch(e => console.error("Error playing audio", e));
     }
   };
 
@@ -71,7 +73,7 @@ export default function DuolingoGame({ onResult }) {
             <motion.button 
               key={i} 
               onClick={() => handleWordClick(word, i)}
-              className={`px-4 py-3 rounded-2xl font-black text-lg transition-all duration-200 border-b-4 
+              className={`px-3 sm:px-4 py-2 sm:py-3 rounded-2xl font-black text-base sm:text-lg transition-all duration-200 border-b-4 
                 ${gameState === "playing" ? 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 hover:scale-105 active:translate-y-[2px] active:border-b-2 shadow-sm cursor-pointer' : ''}
                 ${isCorrectChoice ? 'bg-emerald-100 border-2 border-emerald-500 text-emerald-700 border-b-0 translate-y-[4px]' : ''}
                 ${isWrongChoice ? 'bg-red-100 border-2 border-red-500 text-red-700 border-b-0 translate-y-[4px]' : ''}

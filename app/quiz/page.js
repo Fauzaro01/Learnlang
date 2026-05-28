@@ -186,12 +186,12 @@ export default function QuizPage() {
         }}
       />
 
-      <div className="min-h-[calc(100vh-4rem)] bg-white relative w-full font-[family-name:var(--font-nunito)]">
+      <div className="min-h-[calc(100vh-4rem)] bg-white relative w-full font-[family-name:var(--font-nunito)] overflow-x-hidden">
         {/* Background Decorations */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50 rounded-full blur-3xl -z-10 opacity-60" />
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-50 rounded-full blur-3xl -z-10 opacity-40" />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex flex-col gap-8 relative z-10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex flex-col gap-8 relative z-10 w-full overflow-hidden sm:overflow-visible">
           {/* Header Section */}
           <header className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-gradient-to-r from-indigo-500 to-indigo-600 p-8 rounded-[2.5rem] border-4 border-b-8 border-indigo-700 text-white shadow-xl">
             <div className="flex items-center gap-5">
@@ -262,7 +262,7 @@ export default function QuizPage() {
 
               {/* The Path */}
               <div
-                className="relative w-[400px]"
+                className="relative w-[400px] shrink-0 scale-[0.85] sm:scale-100 origin-top"
                 style={{ height: `${svgHeight}px` }}
               >
                 {/* SVG Bezier Path */}
@@ -459,28 +459,39 @@ export default function QuizPage() {
                       {/* Floating Details Popup */}
                       <AnimatePresence>
                         {isSelected && (
-                          <motion.div
-                            initial={{
-                              opacity: 0,
-                              scale: 0.9,
-                              x: x >= 200 ? 15 : -15,
-                            }}
-                            animate={{ opacity: 1, scale: 1, x: 0 }}
-                            exit={{
-                              opacity: 0,
-                              scale: 0.9,
-                              x: x >= 200 ? 15 : -15,
-                            }}
-                            className={`absolute z-45 w-72 bg-white/95 backdrop-blur-md border-3 border-gray-200 p-6 rounded-3xl shadow-xl text-center top-1/2 -translate-y-1/2 ${
-                              x >= 200 ? "right-full mr-6" : "left-full ml-6"
-                            }`}
-                          >
-                            {/* Pointer arrow */}
-                            {x >= 200 ? (
-                              <div className="absolute top-1/2 -translate-y-1/2 -right-2 w-3.5 h-3.5 bg-white border-t-3 border-r-3 border-gray-200 rotate-45" />
-                            ) : (
-                              <div className="absolute top-1/2 -translate-y-1/2 -left-2 w-3.5 h-3.5 bg-white border-b-3 border-l-3 border-gray-200 rotate-45" />
-                            )}
+                          <>
+                            {/* Mobile Backdrop */}
+                            <motion.div
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: 1 }}
+                              exit={{ opacity: 0 }}
+                              className="fixed inset-0 z-[90] bg-black/20 backdrop-blur-sm sm:hidden"
+                              onClick={() => setSelectedQuiz(null)}
+                            />
+
+                            <motion.div
+                              initial={{
+                                opacity: 0,
+                                scale: 0.9,
+                              }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              exit={{
+                                opacity: 0,
+                                scale: 0.9,
+                              }}
+                              className={`fixed sm:absolute z-[100] sm:z-45 
+                                bottom-4 left-4 right-4 sm:bottom-auto sm:left-auto sm:right-auto sm:w-72 
+                                bg-white/95 backdrop-blur-md border-3 border-gray-200 p-5 sm:p-6 rounded-3xl shadow-xl text-center 
+                                sm:top-1/2 sm:-translate-y-1/2 
+                                ${x >= 200 ? "sm:right-full sm:mr-6" : "sm:left-full sm:ml-6"}
+                              `}
+                            >
+                              {/* Pointer arrow (Desktop only) */}
+                              {x >= 200 ? (
+                                <div className="hidden sm:block absolute top-1/2 -translate-y-1/2 -right-2 w-3.5 h-3.5 bg-white border-t-3 border-r-3 border-gray-200 rotate-45" />
+                              ) : (
+                                <div className="hidden sm:block absolute top-1/2 -translate-y-1/2 -left-2 w-3.5 h-3.5 bg-white border-b-3 border-l-3 border-gray-200 rotate-45" />
+                              )}
 
                             {/* Icon */}
                             <div className="flex justify-center mb-4">
@@ -608,6 +619,7 @@ export default function QuizPage() {
                               </button>
                             )}
                           </motion.div>
+                          </>
                         )}
                       </AnimatePresence>
                     </div>

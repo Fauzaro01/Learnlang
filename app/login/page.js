@@ -60,7 +60,7 @@ export default function LoginPage() {
         <span className="text-2xl font-black text-[#6366F1]">LernLang</span>
       </div>
 
-      <div className="min-h-screen flex">
+      <div className="relative z-10 min-h-screen flex">
         {/* ── LEFT: Green mascot panel ─────────────────── */}
         <div className="hidden lg:flex w-[45%] bg-[#6366F1] flex-col items-center justify-center relative overflow-hidden px-10">
           <div className="absolute -top-24 -left-24 w-72 h-72 bg-[#818CF8] rounded-full opacity-50" />

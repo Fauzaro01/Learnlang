@@ -646,6 +646,13 @@ export default function MethodPracticeClient({ method }) {
     setSelected(serialized);
     setCorrect(isRight);
     setRevealed(true);
+    
+    if (isRight) {
+      new Audio('/correct.mp3').play().catch(e => console.error("Error playing audio", e));
+    } else {
+      new Audio('/incorrect.mp3').play().catch(e => console.error("Error playing audio", e));
+    }
+
     setAnswers((prev) => ({
       ...prev,
       [currentQuestion.sessionQuestionId]: serialized,
@@ -718,6 +725,12 @@ export default function MethodPracticeClient({ method }) {
     const isRight = answer === currentQuestion.answer;
     setCorrect(isRight);
     setRevealed(true);
+
+    if (isRight) {
+      new Audio('/correct.mp3').play().catch(e => console.error("Error playing audio", e));
+    } else {
+      new Audio('/incorrect.mp3').play().catch(e => console.error("Error playing audio", e));
+    }
 
     // Store answer
     setAnswers((prev) => ({
@@ -837,6 +850,13 @@ export default function MethodPracticeClient({ method }) {
 
       setResults(payload.data);
       setCompleted(true);
+
+      const finalScore = payload.data.session.percentage;
+      if (finalScore >= 60) {
+        new Audio('/Diatasratarata.mp3').play().catch(e => console.error("Error playing audio", e));
+      } else {
+        new Audio('/Dibawahratarata.mp3').play().catch(e => console.error("Error playing audio", e));
+      }
     } catch (err) {
       setError(err.message || "Failed to submit session");
     } finally {
@@ -1025,6 +1045,43 @@ export default function MethodPracticeClient({ method }) {
                     </div>
                   ))}
                 </div>
+                <div className="mb-5 rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-4 text-center">
+                  <div className="text-[10px] font-black uppercase tracking-widest text-emerald-600">
+                    Reward EXP
+                  </div>
+                  <div className="text-2xl font-black text-emerald-700">
+                    +{results.progress?.earnedXP || 0} XP
+                  </div>
+                </div>
+
+                <div
+                  className={`mb-5 rounded-2xl border-2 border-b-4 p-4 text-center ${
+                    (results.progress?.earnedXP || 0) > 0
+                      ? "border-[#A7F3D0] bg-gradient-to-br from-emerald-50 to-teal-50"
+                      : "border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50"
+                  }`}
+                >
+                  <div
+                    className={`text-[10px] font-black uppercase tracking-widest ${(results.progress?.earnedXP || 0) > 0 ? "text-emerald-600" : "text-amber-700"}`}
+                  >
+                    Status Reward
+                  </div>
+                  <div
+                    className={`mt-1 text-base font-black ${(results.progress?.earnedXP || 0) > 0 ? "text-emerald-700" : "text-amber-800"}`}
+                  >
+                    {(results.progress?.earnedXP || 0) > 0
+                      ? "EXP berhasil ditambahkan"
+                      : "Reward EXP sudah pernah diklaim atau 0"}
+                  </div>
+                  <p
+                    className={`mt-1 text-xs font-bold ${(results.progress?.earnedXP || 0) > 0 ? "text-emerald-600" : "text-amber-700"}`}
+                  >
+                    {(results.progress?.earnedXP || 0) > 0
+                      ? "Selamat, bonus EXP dari latihan ini sudah masuk ke akunmu."
+                      : "Kamu tetap bisa latihan lagi, tapi bonus EXP hanya diberikan jika ada ketentuan berlaku."}
+                  </p>
+                </div>
+
                 {/* Actions */}
                 <div className="flex gap-3 flex-col sm:flex-row">
                   <button
@@ -1040,6 +1097,67 @@ export default function MethodPracticeClient({ method }) {
                     Ulang ↺
                   </button>
                 </div>
+              </div>
+            </div>
+
+            {/* Detailed results */}
+            <div className="mt-5 bg-white rounded-3xl border-2 border-b-[6px] border-gray-200 shadow-sm overflow-hidden">
+              <div className="flex items-center gap-2 px-5 py-4 border-b-2 border-gray-100">
+                <Icon
+                  icon="solar:clipboard-list-bold"
+                  className="text-xl text-indigo-500"
+                />
+                <h3 className="font-black text-gray-900">Pembahasan Jawaban</h3>
+              </div>
+              <div className="p-5 space-y-3">
+                {results.results?.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`rounded-2xl border-2 border-b-4 p-4 ${item.isCorrect ? "bg-emerald-50 border-emerald-200" : "bg-red-50 border-red-200"}`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div
+                        className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${item.isCorrect ? "bg-emerald-400" : "bg-red-400"}`}
+                      >
+                        <Icon
+                          icon={
+                            item.isCorrect
+                              ? "solar:check-circle-bold"
+                              : "solar:close-circle-bold"
+                          }
+                          className="text-white text-lg"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-black text-gray-900 text-sm mb-2">
+                          Soal ke-{index + 1}
+                        </p>
+                        <div className="space-y-1 text-xs font-bold">
+                          <p className="text-gray-600">
+                            Jawaban kamu:{" "}
+                            <span
+                              className={
+                                item.isCorrect
+                                  ? "text-emerald-700"
+                                  : "text-red-700"
+                              }
+                            >
+                              {Array.isArray(item.userAnswer) ? item.userAnswer.join(" ") : item.userAnswer || "(tidak dijawab)"}
+                            </span>
+                          </p>
+                          {!item.isCorrect && (
+                            <p className="text-gray-600">
+                              Jawaban benar:{" "}
+                              <span className="text-emerald-700">
+                                {Array.isArray(item.correctAnswer) ? item.correctAnswer.join(" ") : item.correctAnswer}
+                              </span>
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>

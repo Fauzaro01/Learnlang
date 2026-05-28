@@ -1,6 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import ReactMarkdown from "react-markdown";
@@ -59,7 +61,24 @@ const UserIcon = () => (
 );
 
 export default function BlogDetailClient({ blog }) {
+  const { data: session, status } = useSession();
   const router = useRouter();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+
+  if (status === "loading" || !session) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-lg font-black text-[#9333EA] animate-pulse">
+          Memuat...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <DashboardLayout>

@@ -6,6 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { blogListMetadata } from "../metadata";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 // ==================================================
 // CUSTOM BESPOKE SVG ICONS — No generic library icons
@@ -131,12 +133,23 @@ const EmptyBlogIcon = () => (
 // ==================================================
 
 export default function BlogsPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchBlogs();
-  }, []);
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchBlogs();
+    }
+  }, [status]);
 
   const fetchBlogs = async () => {
     try {
@@ -152,7 +165,7 @@ export default function BlogsPage() {
     }
   };
 
-  if (loading) {
+  if (loading || status === "loading") {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-lg font-black text-[#9333EA] animate-pulse">
@@ -160,6 +173,10 @@ export default function BlogsPage() {
         </div>
       </div>
     );
+  }
+
+  if (!session) {
+    return null;
   }
 
   return (

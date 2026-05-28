@@ -6,7 +6,7 @@ import { SocketProvider } from "@/lib/socket-provider";
 import SessionGuard from "@/components/SessionGuard";
 import DashboardLayout from "@/components/DashboardLayout";
 
-const excludedPaths = ["/", "/login", "/register"];
+const excludedPaths = ["/", "/login", "/register", "/about"];
 
 export default function Providers({ children }) {
   return (

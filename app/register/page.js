@@ -81,7 +81,7 @@ export default function RegisterPage() {
         <span className="text-2xl font-black text-[#6366F1]">LernLang</span>
       </div>
 
-      <div className="min-h-screen flex">
+      <div className="relative z-10 min-h-screen flex">
         {/* ── LEFT: Register form ─────────────────── */}
         <div className="flex-1 flex items-center justify-center px-6 py-16">
           <motion.div

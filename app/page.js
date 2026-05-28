@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { motion } from "framer-motion";
 import { landingPageMetadata } from "./metadata";
 
@@ -206,7 +207,7 @@ export default function LandingPage() {
   const ctaLabel = session ? "LANJUT BELAJAR ➔" : "MULAI SEKARANG ➔";
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 font-[family-name:var(--font-nunito)] selection:bg-[#818CF8] selection:text-white">
+    <div className="min-h-screen bg-white text-gray-800 font-[family-name:var(--font-nunito)] selection:bg-[#818CF8] selection:text-white overflow-x-hidden">
       <style
         dangerouslySetInnerHTML={{
           __html: `
@@ -268,15 +269,15 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start max-w-md mx-auto lg:mx-0">
-              <Link href="/register" className="w-full">
+              <Link href={session ? "/learn" : "/login"} className="w-full">
                 <button className="w-full py-4 sm:py-5 bg-[#6366F1] hover:bg-[#818CF8] text-white border-b-6 border-[#4338CA] rounded-2xl font-black text-lg sm:text-xl duo-btn flex items-center justify-center gap-3 shadow-md">
-                  MULAI SEKARANG ➔
+                  {session ? "LANJUT BELAJAR ➔" : "MULAI SEKARANG ➔"}
                 </button>
               </Link>
             </div>
           </div>
 
-          <div className="lg:col-span-5 z-10 hidden sm:block">
+          <div className="lg:col-span-5 z-10 flex justify-center order-first lg:order-last mb-8 lg:mb-0 scale-90 sm:scale-100">
             <HeroMascotIllustration />
           </div>
         </div>
@@ -348,7 +349,7 @@ export default function LandingPage() {
       {/* Section A: Belajar Sambil Bermain (Tech battery themed) */}
       <section className="bg-white border-y-2 border-gray-200 py-12 sm:py-24 px-4 sm:px-6 relative">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
-          <div className="lg:col-span-5 order-last lg:order-first hidden sm:block">
+          <div className="lg:col-span-5 flex justify-center order-first lg:order-first mb-2 lg:mb-0 scale-90 sm:scale-100">
             <GamificationIllustration />
           </div>
           <div className="lg:col-span-7">
@@ -391,7 +392,7 @@ export default function LandingPage() {
               Bukan cuma menyalahkan, AI kami menjelaskan struktur kalimat yang benar sehingga kamu bisa belajar dari kesalahan secara mendalam dan cepat pintar.
             </p>
           </div>
-          <div className="lg:col-span-5 hidden sm:block">
+          <div className="lg:col-span-5 flex justify-center order-first lg:order-last mb-2 lg:mb-0 scale-90 sm:scale-100">
             <AIReviewIllustration />
           </div>
         </div>
@@ -400,7 +401,7 @@ export default function LandingPage() {
       {/* Section C: Leaderboard */}
       <section className="bg-white border-y-2 border-gray-200 py-12 sm:py-24 px-4 sm:px-6 relative">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-12 gap-8 lg:gap-16 items-center">
-          <div className="lg:col-span-5 order-last lg:order-first hidden sm:block">
+          <div className="lg:col-span-5 flex justify-center order-first lg:order-first mb-2 lg:mb-0 scale-90 sm:scale-100">
             <LeaderboardIllustration />
           </div>
           <div className="lg:col-span-7">
@@ -597,140 +598,7 @@ export default function LandingPage() {
       {/* ==========================================
           7. PLAYFUL FOOTER
          ========================================== */}
-      <footer className="bg-white border-t-2 border-gray-200 pt-10 sm:pt-16 pb-8 px-4 sm:px-6 mt-8 sm:mt-16">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-12 mb-8 sm:mb-12">
-          <div className="md:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-4 group">
-              <svg
-                className="w-10 h-10 group-hover:scale-110 transition-transform duration-200 drop-shadow-sm"
-                viewBox="0 0 100 100"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  x="15"
-                  y="20"
-                  width="70"
-                  height="70"
-                  rx="16"
-                  fill="#6366F1"
-                />
-                <rect
-                  x="15"
-                  y="20"
-                  width="70"
-                  height="60"
-                  rx="16"
-                  fill="#818CF8"
-                />
-                <line
-                  x1="50"
-                  y1="20"
-                  x2="50"
-                  y2="8"
-                  stroke="#4338CA"
-                  strokeWidth="5"
-                  strokeLinecap="round"
-                />
-                <circle cx="50" cy="8" r="5" fill="#FBBF24" />
-                <circle cx="10" cy="50" r="7" fill="#4338CA" />
-                <circle cx="90" cy="50" r="7" fill="#4338CA" />
-                <rect
-                  x="25"
-                  y="35"
-                  width="50"
-                  height="25"
-                  rx="6"
-                  fill="#1E1B4B"
-                />
-                <ellipse
-                  cx="32"
-                  cy="53"
-                  rx="3.5"
-                  ry="2"
-                  fill="#FF8A80"
-                  opacity="0.8"
-                />
-                <ellipse
-                  cx="68"
-                  cy="53"
-                  rx="3.5"
-                  ry="2"
-                  fill="#FF8A80"
-                  opacity="0.8"
-                />
-                <circle cx="40" cy="47" r="4.5" fill="#10B981" />
-                <circle cx="60" cy="47" r="4.5" fill="#10B981" />
-              </svg>
-              <span className="text-2xl font-black text-gray-900 tracking-tight">
-                Learn<span className="text-[#6366F1]">Lang</span>
-              </span>
-            </Link>
-            <p className="text-[#78909C] font-bold max-w-sm leading-relaxed">
-              Membuat belajar bahasa Inggris menyenangkan layaknya bermain game.
-              Cerdas, menyenangkan, dan gratis selamanya!
-            </p>
-          </div>
-          <div>
-            <h4 className="font-black text-gray-900 mb-4 text-lg">Eksplor</h4>
-            <ul className="space-y-3 font-bold text-[#78909C]">
-              <li>
-                <Link
-                  href="/learn"
-                  className="hover:text-[#6366F1] transition-colors"
-                >
-                  Modul Belajar
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/quiz"
-                  className="hover:text-[#6366F1] transition-colors"
-                >
-                  Game Seru
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/blogs"
-                  className="hover:text-[#6366F1] transition-colors"
-                >
-                  Cerita & Artikel
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-black text-gray-900 mb-4 text-lg">Info</h4>
-            <ul className="space-y-3 font-bold text-[#78909C]">
-              <li>
-                <Link
-                  href="/about"
-                  className="hover:text-[#6366F1] transition-colors"
-                >
-                  Tentang Kami
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="hover:text-[#6366F1] transition-colors"
-                >
-                  Hubungi Kami
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/login"
-                  className="hover:text-[#6366F1] transition-colors"
-                >
-                  Masuk Akun
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

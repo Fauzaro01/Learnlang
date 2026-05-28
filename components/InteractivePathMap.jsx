@@ -165,7 +165,7 @@ export default function InteractivePathMap() {
       {/* ==========================================
           THE DETECTIVE PROGRESSION SIRKUIT PATH
          ========================================== */}
-      <div className="flex justify-center w-full z-10 overflow-hidden">
+      <div className="flex justify-center w-full z-10 sm:overflow-visible">
         <div className="relative w-[400px] h-[600px] scale-[0.7] sm:scale-[0.85] md:scale-100 origin-top">
           
           {/* SVG Bezier Path (Winding energy line) */}
@@ -296,20 +296,30 @@ export default function InteractivePathMap() {
                 {/* Floating Cyber Glass Pop-up Details */}
                 <AnimatePresence>
                   {isSelected && (
-                    <motion.div 
-                      initial={{ opacity: 0, scale: 0.9, x: lvl.x >= 200 ? 15 : -15 }}
-                      animate={{ opacity: 1, scale: 1, x: 0 }}
-                      exit={{ opacity: 0, scale: 0.9, x: lvl.x >= 200 ? 15 : -15 }}
-                      className={`absolute z-45 w-48 sm:w-60 bg-white/95 backdrop-blur-md border-3 border-gray-200 p-3 sm:p-5 rounded-2xl sm:rounded-3xl shadow-xl text-center top-1/2 -translate-y-1/2 ${
-                        lvl.x >= 200 ? "right-full mr-4 sm:mr-6" : "left-full ml-4 sm:ml-6"
-                      }`}
-                    >
-                      {/* Small pointer arrow */}
-                      {lvl.x >= 200 ? (
-                        <div className="absolute top-1/2 -translate-y-1/2 -right-2 w-3.5 h-3.5 bg-white border-t-3 border-r-3 border-gray-200 rotate-45" />
-                      ) : (
-                        <div className="absolute top-1/2 -translate-y-1/2 -left-2 w-3.5 h-3.5 bg-white border-b-3 border-l-3 border-gray-200 rotate-45" />
-                      )}
+                    <>
+                      {/* Mobile Backdrop */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[90] bg-black/20 backdrop-blur-sm sm:hidden"
+                        onClick={() => setSelectedLevel(null)}
+                      />
+
+                      <motion.div 
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        className={`fixed sm:absolute z-[100] sm:z-45 bottom-4 left-4 right-4 sm:bottom-auto sm:left-auto sm:right-auto sm:w-60 bg-white/95 backdrop-blur-md border-3 border-gray-200 p-5 rounded-3xl shadow-xl text-center sm:top-1/2 sm:-translate-y-1/2 ${
+                          lvl.x >= 200 ? "sm:right-full sm:mr-6" : "sm:left-full sm:ml-6"
+                        }`}
+                      >
+                        {/* Small pointer arrow (Desktop only) */}
+                        {lvl.x >= 200 ? (
+                          <div className="hidden sm:block absolute top-1/2 -translate-y-1/2 -right-2 w-3.5 h-3.5 bg-white border-t-3 border-r-3 border-gray-200 rotate-45" />
+                        ) : (
+                          <div className="hidden sm:block absolute top-1/2 -translate-y-1/2 -left-2 w-3.5 h-3.5 bg-white border-b-3 border-l-3 border-gray-200 rotate-45" />
+                        )}
                       
                       <div className="flex justify-center mb-3">
                         <div className={`w-10 h-10 rounded-xl ${lvl.light} border-2 border-dashed flex items-center justify-center shadow-sm`}>
@@ -343,7 +353,8 @@ export default function InteractivePathMap() {
                           Kunci Dasar 🔒
                         </button>
                       )}
-                    </motion.div>
+                      </motion.div>
+                    </>
                   )}
                 </AnimatePresence>
                 
