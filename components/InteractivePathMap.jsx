@@ -165,8 +165,8 @@ export default function InteractivePathMap() {
       {/* ==========================================
           THE DETECTIVE PROGRESSION SIRKUIT PATH
          ========================================== */}
-      <div className="flex justify-center w-full z-10">
-        <div className="relative w-[400px] h-[600px]">
+      <div className="flex justify-center w-full z-10 overflow-hidden">
+        <div className="relative w-[400px] h-[600px] scale-[0.7] sm:scale-[0.85] md:scale-100 origin-top">
           
           {/* SVG Bezier Path (Winding energy line) */}
           <svg className="absolute inset-0 w-full h-full z-0 pointer-events-none" viewBox="0 0 400 600" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -300,8 +300,8 @@ export default function InteractivePathMap() {
                       initial={{ opacity: 0, scale: 0.9, x: lvl.x >= 200 ? 15 : -15 }}
                       animate={{ opacity: 1, scale: 1, x: 0 }}
                       exit={{ opacity: 0, scale: 0.9, x: lvl.x >= 200 ? 15 : -15 }}
-                      className={`absolute z-45 w-60 bg-white/95 backdrop-blur-md border-3 border-gray-200 p-5 rounded-3xl shadow-xl text-center top-1/2 -translate-y-1/2 ${
-                        lvl.x >= 200 ? "right-full mr-6" : "left-full ml-6"
+                      className={`absolute z-45 w-48 sm:w-60 bg-white/95 backdrop-blur-md border-3 border-gray-200 p-3 sm:p-5 rounded-2xl sm:rounded-3xl shadow-xl text-center top-1/2 -translate-y-1/2 ${
+                        lvl.x >= 200 ? "right-full mr-4 sm:mr-6" : "left-full ml-4 sm:ml-6"
                       }`}
                     >
                       {/* Small pointer arrow */}

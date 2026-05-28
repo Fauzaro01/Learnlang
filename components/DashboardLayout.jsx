@@ -323,8 +323,8 @@ const StatusBattery = ({ size = 22 }) => (
 );
 
 // Liga / Trophy icon
-const IconLeague = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+const IconLeague = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
     <path
       d="M6 9H4.5A1.5 1.5 0 0 1 3 7.5V6a1.5 1.5 0 0 1 1.5-1.5h3"
       stroke="#F59E0B"
@@ -477,7 +477,7 @@ const SOSIAL_KOMPETISI = [
   },
   {
     href: "/chats",
-    label: "Chats AI",
+    label: "Chats",
     Icon: NavIconChat,
     accent: "#EC4899",
     bg: "#FDF2F8",
@@ -1087,7 +1087,7 @@ export default function DashboardLayout({ children }) {
                         </div>
                         <div className="h-3 rounded-full bg-gray-100 overflow-hidden border border-gray-200">
                           <div
-                            className="h-full rounded-full bg-gradient-to-r from-violet-400 to-indigo-500"
+                            className="h-full rounded-full bg-blue-600"
                             style={{
                               width: `${Math.round((stats?.tierProgress?.progress || 0) * 100)}%`,
                             }}
@@ -1280,6 +1280,13 @@ export default function DashboardLayout({ children }) {
               </span>
             </Link>
             <div className="flex items-center gap-2">
+              <Link
+                href="/leaderboard"
+                className="p-2 text-gray-400 hover:text-amber-500 transition-colors"
+                title="Klasemen"
+              >
+                <IconLeague size={22} />
+              </Link>
               <Link
                 href="/notifications"
                 className="p-2 text-gray-400 hover:text-[#6366F1] transition-colors"

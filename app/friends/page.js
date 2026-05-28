@@ -644,12 +644,7 @@ export default function FriendsPage() {
             <h2 className="text-3xl font-black text-gray-950 flex items-center gap-3">
               Cari Teman Baru
             </h2>
-            <Link href="/friends/requests" className="w-full sm:w-auto">
-              <button className="px-5 py-3.5 bg-white border-2 border-gray-200 hover:bg-gray-50 text-gray-700 rounded-2xl font-black text-sm transition-all flex items-center justify-center gap-2 shadow-sm w-full">
-                <MailIcon />
-                Inbox Permintaan
-              </button>
-            </Link>
+      
           </div>
 
           {/* Error Alert */}

@@ -49,7 +49,7 @@ export default function LoginPage() {
       <div className="absolute top-6 left-6 z-20">
         <Link
           href="/"
-          className="flex items-center gap-2 text-gray-500 hover:text-[#6366F1] font-black text-sm transition-colors"
+          className="flex items-center gap-2 text-white hover:text-[#6366F1] font-black text-sm transition-colors"
         >
           <ArrowLeft className="w-5 h-5" /> Beranda
         </Link>
