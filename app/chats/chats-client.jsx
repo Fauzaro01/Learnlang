@@ -248,7 +248,7 @@ export default function ChatsClient({ initialUserId = null }) {
             <div className="max-w-2xl flex items-center justify-between gap-6">
               <div>
                 <h1 className="text-4xl sm:text-5xl font-black tracking-tight mb-4 drop-shadow-md leading-tight">
-                  Chat Real-Time + Arga AI!
+                  Chit Chat!
                 </h1>
                 <p className="text-lg sm:text-xl text-white/90 font-bold leading-relaxed max-w-xl">
                   Diskusikan latihan harianmu, kirim pesan ke teman, atau buka
@@ -262,7 +262,7 @@ export default function ChatsClient({ initialUserId = null }) {
 
             <div className="flex flex-wrap gap-4 mt-2">
               {[
-                ["Arga AI", "Ollama qwen2.5:1.5b"],
+                ["Arga AI", "Asisten Pribadimu"],
                 ["Personal", "Pesan Pribadi"],
                 ["Aman", "100% Terenkripsi"],
               ].map(([value, label]) => (

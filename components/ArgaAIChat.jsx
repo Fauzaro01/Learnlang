@@ -5,7 +5,7 @@ import { useState } from "react";
 const QUICK_PROMPTS = [
   "Bantu saya belajar grammar present perfect",
   "Buat contoh dialog bahasa Inggris untuk pemula",
-  "Jelaskan perbedaan say dan tell",
+  "Jelaskan apa itu past tense",
 ];
 
 function AssistantIcon() {
@@ -102,7 +102,7 @@ export default function ArgaAIChat() {
         {
           role: "assistant",
           content:
-            "Maaf, Arga AI sedang tidak tersedia. Pastikan server Ollama aktif lalu coba lagi.",
+            "Maaf, Arga AI sedang tidak tersedia. Pastikan server aktif lalu coba lagi.",
         },
       ]);
     } finally {
@@ -122,7 +122,7 @@ export default function ArgaAIChat() {
               Arga AI
             </h2>
             <p className="text-xs font-bold text-[#78909C]">
-              Online • Asisten belajar bahasa Inggris
+              Online
             </p>
           </div>
         </div>
