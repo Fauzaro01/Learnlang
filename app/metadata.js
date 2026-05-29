@@ -1,5 +1,7 @@
 // Centralized metadata configurations for SEO across the app
 
+import { normalizePublicImageUrl } from "@/lib/utils";
+
 export const landingPageMetadata = {
   title: "LernLang - Belajar Bahasa Inggris Interaktif dengan AI",
   description:
@@ -68,7 +70,8 @@ export function getBlogArticleMetadata(blog) {
     blog.excerpt ||
     blog.content?.substring(0, 160) ||
     "Baca artikel lengkap di LernLang Blog";
-  const image = blog.coverImage || "/default-blog-og.png";
+  const image =
+    normalizePublicImageUrl(blog.coverImage) || "/default-blog-og.png";
 
   return {
     title: `${blog.title} - LernLang Blog`,
@@ -96,7 +99,8 @@ export function getBlogArticleMetadata(blog) {
 }
 
 export function getBlogArticleStructuredData(blog) {
-  const image = blog.coverImage || "/default-blog-og.png";
+  const image =
+    normalizePublicImageUrl(blog.coverImage) || "/default-blog-og.png";
 
   return {
     "@context": "https://schema.org",

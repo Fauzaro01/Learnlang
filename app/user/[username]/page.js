@@ -708,13 +708,7 @@ export default function PublicProfilePage() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-12 py-8 border-t-4 border-gray-200 bg-white">
-        <div className="max-w-5xl mx-auto px-4 text-center">
-          <p className="text-sm font-bold text-gray-400">
-            © {new Date().getFullYear()} LernLang. All rights reserved.
-          </p>
-        </div>
-      </footer>
+    
     </div>
   );
 }

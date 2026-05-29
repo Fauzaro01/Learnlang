@@ -12,6 +12,7 @@ import rehypeSanitize from "rehype-sanitize";
 import DashboardLayout from "@/components/DashboardLayout";
 import BlogReactions from "@/components/BlogReactions";
 import BlogComments from "@/components/BlogComments";
+import { normalizePublicImageUrl } from "@/lib/utils";
 
 const ArrowLeftIcon = () => (
   <svg
@@ -124,14 +125,15 @@ export default function BlogDetailClient({ blog }) {
             transition={{ duration: 0.5 }}
             className="bg-white border-4 border-b-[8px] border-gray-200 rounded-3xl shadow-sm overflow-hidden"
           >
-            {blog.coverImage ? (
+            {normalizePublicImageUrl(blog.coverImage) ? (
               <div className="relative w-full h-48 sm:h-72 md:h-96 border-b-4 border-gray-200">
                 <Image
-                  src={blog.coverImage}
+                  src={normalizePublicImageUrl(blog.coverImage)}
                   alt={blog.title}
                   fill
                   className="object-cover"
                   priority
+                  unoptimized
                 />
               </div>
             ) : (

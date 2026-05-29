@@ -243,7 +243,6 @@ export default function Navbar() {
                         <DropdownMenuSubContent className="rounded-xl border-2 border-gray-200 shadow-xl p-1 font-[family-name:var(--font-nunito)]">
                           <DropdownMenuItem asChild className="rounded-lg cursor-pointer font-black"><Link href="/admin"><BarChart3 className="mr-2 h-4 w-4" /> Dashboard</Link></DropdownMenuItem>
                           <DropdownMenuItem asChild className="rounded-lg cursor-pointer font-black"><Link href="/admin/quizzes"><ClipboardList className="mr-2 h-4 w-4" /> Kuis</Link></DropdownMenuItem>
-                          <DropdownMenuItem asChild className="rounded-lg cursor-pointer font-black"><Link href="/admin/quizzes"><ClipboardList className="mr-2 h-4 w-4" /> Kuis</Link></DropdownMenuItem>
                           <DropdownMenuItem asChild className="rounded-lg cursor-pointer font-black"><Link href="/admin/users"><Users className="mr-2 h-4 w-4" /> Pengguna</Link></DropdownMenuItem>
                           <DropdownMenuItem asChild className="rounded-lg cursor-pointer font-black"><Link href="/admin/blogs"><FileText className="mr-2 h-4 w-4" /> Blog</Link></DropdownMenuItem>
                         </DropdownMenuSubContent>

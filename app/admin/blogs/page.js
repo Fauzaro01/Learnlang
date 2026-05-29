@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
+import { normalizePublicImageUrl } from "@/lib/utils";
 
 // Load TiptapEditor only on client (no SSR)
 const TiptapEditor = dynamic(() => import("@/components/TiptapEditor"), { ssr: false });
@@ -202,9 +203,9 @@ export default function AdminBlogsPage() {
                   <Icon icon="solar:eye-bold" className="text-indigo-500 text-xl" />
                   <span className="font-black text-gray-700">Preview</span>
                 </div>
-                {form.coverImage && (
+                {normalizePublicImageUrl(form.coverImage) && (
                   <div className="relative w-full h-48 sm:h-64 rounded-2xl overflow-hidden mb-6 border-2 border-gray-200">
-                    <Image src={form.coverImage} alt="Cover" fill className="object-cover" />
+                    <Image src={normalizePublicImageUrl(form.coverImage)} alt="Cover" fill className="object-cover" unoptimized />
                   </div>
                 )}
                 <h1 className="text-2xl sm:text-3xl font-black text-gray-900 mb-3">{form.title || "Judul Blog"}</h1>
@@ -250,9 +251,9 @@ export default function AdminBlogsPage() {
                 <h3 className="font-black text-gray-800 text-sm">Cover Image</h3>
               </div>
 
-              {form.coverImage ? (
+              {normalizePublicImageUrl(form.coverImage) ? (
                 <div className="relative w-full h-36 rounded-2xl overflow-hidden border-2 border-gray-200 mb-3">
-                  <Image src={form.coverImage} alt="Cover" fill className="object-cover" />
+                  <Image src={normalizePublicImageUrl(form.coverImage)} alt="Cover" fill className="object-cover" unoptimized />
                   <button
                     onClick={() => setForm((p) => ({ ...p, coverImage: "" }))}
                     className="absolute top-2 right-2 w-7 h-7 bg-red-500 border-2 border-red-700 rounded-xl flex items-center justify-center text-white hover:bg-red-600 transition-colors"
@@ -367,8 +368,8 @@ export default function AdminBlogsPage() {
                 >
                   {/* Cover */}
                   <div className="relative w-full h-36 bg-gradient-to-br from-gray-100 to-gray-200">
-                    {blog.coverImage ? (
-                      <Image src={blog.coverImage} alt={blog.title} fill className="object-cover" />
+                    {normalizePublicImageUrl(blog.coverImage) ? (
+                      <Image src={normalizePublicImageUrl(blog.coverImage)} alt={blog.title} fill className="object-cover" unoptimized />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
                         <Icon icon="solar:gallery-bold" className="text-4xl text-gray-300" />

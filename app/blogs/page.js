@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { blogListMetadata } from "../metadata";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { normalizePublicImageUrl } from "@/lib/utils";
 
 // ==================================================
 // CUSTOM BESPOKE SVG ICONS — No generic library icons
@@ -295,7 +296,10 @@ export default function BlogsPage() {
                 transition={{ delay: 0.15, duration: 0.5 }}
                 className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-4"
               >
-                {blogs.map((blog, index) => (
+                {blogs.map((blog) => {
+                  const coverImageSrc = normalizePublicImageUrl(blog.coverImage);
+
+                  return (
                   <Link
                     key={blog.id}
                     href={`/blogs/${blog.slug}`}
@@ -306,13 +310,14 @@ export default function BlogsPage() {
                       style={{ borderBottomColor: "#E5E7EB" }}
                     >
                       {/* Cover Image Placeholder or Real Image */}
-                      {blog.coverImage ? (
+                      {coverImageSrc ? (
                         <div className="relative w-full h-40 border-b-4 border-black/10">
                           <Image
-                            src={blog.coverImage}
+                            src={coverImageSrc}
                             alt={blog.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            unoptimized
                           />
                         </div>
                       ) : (
@@ -390,7 +395,8 @@ export default function BlogsPage() {
                       </div>
                     </div>
                   </Link>
-                ))}
+                  );
+                })}
               </motion.div>
             )}
           </section>
