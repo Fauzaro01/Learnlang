@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
 
 const QUICK_PROMPTS = [
   "Bantu saya belajar grammar present perfect",
@@ -31,7 +35,6 @@ function AssistantIcon() {
 
 function Bubble({ role, content }) {
   const isUser = role === "user";
-
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
       <div
@@ -41,7 +44,17 @@ function Bubble({ role, content }) {
             : "rounded-bl-md bg-white text-gray-800 border border-gray-200"
         }`}
       >
-        <div className="whitespace-pre-wrap">{content}</div>
+        {isUser ? (
+          <div className="whitespace-pre-wrap">{content}</div>
+        ) : (
+          <div className="whitespace-pre-wrap prose prose-sm">
+            <ReactMarkdown
+              children={content}
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw, rehypeSanitize]}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
