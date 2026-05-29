@@ -5,7 +5,8 @@ import { limiters, getRateLimitKey } from "@/lib/ratelimit";
 
 const GOOGLE_API_KEY = process.env.GOOGLE_AI_API_KEY;
 const GEMINI_MODEL = "gemini-2.5-flash-lite";
-const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models";
+const GEMINI_API_URL =
+  "https://generativelanguage.googleapis.com/v1beta/models";
 
 const SYSTEM_PROMPT =
   "Kamu adalah Arga AI, asisten belajar bahasa Inggris yang ramah, hangat, dan singkat. Jawab dalam bahasa Indonesia yang jelas kecuali jika pengguna meminta bahasa Inggris. Fokus pada pembelajaran, koreksi, contoh kalimat, dan penjelasan yang mudah dipahami.";
@@ -97,9 +98,7 @@ export async function POST(req) {
       const errorText = await response.text().catch(() => "");
       console.error("Gemini API error:", errorText);
       return jsonResponse(
-        ApiResponse.internalError(
-          errorText || "Gagal terhubung ke Gemini API",
-        ),
+        ApiResponse.internalError(errorText || "Gagal terhubung ke Gemini API"),
         502,
       );
     }

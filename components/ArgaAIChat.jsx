@@ -138,9 +138,7 @@ export default function ArgaAIChat() {
             <h2 className="font-black text-gray-950 text-base leading-tight">
               Arga AI
             </h2>
-            <p className="text-xs font-bold text-[#78909C]">
-              Online
-            </p>
+            <p className="text-xs font-bold text-[#78909C]">Online</p>
           </div>
         </div>
       </div>
