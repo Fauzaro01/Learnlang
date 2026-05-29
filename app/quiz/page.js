@@ -456,42 +456,23 @@ export default function QuizPage() {
                         )}
                       </div>
 
-                      {/* Floating Details Popup */}
+                      {/* Floating Details Popup (Desktop Only) */}
                       <AnimatePresence>
                         {isSelected && (
-                          <>
-                            {/* Mobile Backdrop */}
-                            <motion.div
-                              initial={{ opacity: 0 }}
-                              animate={{ opacity: 1 }}
-                              exit={{ opacity: 0 }}
-                              className="fixed inset-0 z-[90] bg-black/20 backdrop-blur-sm sm:hidden"
-                              onClick={() => setSelectedQuiz(null)}
-                            />
-
-                            <motion.div
-                              initial={{
-                                opacity: 0,
-                                scale: 0.9,
-                              }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              exit={{
-                                opacity: 0,
-                                scale: 0.9,
-                              }}
-                              className={`fixed sm:absolute z-[100] sm:z-45 
-                                bottom-4 left-4 right-4 sm:bottom-auto sm:left-auto sm:right-auto sm:w-72 
-                                bg-white/95 backdrop-blur-md border-3 border-gray-200 p-5 sm:p-6 rounded-3xl shadow-xl text-center 
-                                sm:top-1/2 sm:-translate-y-1/2 
-                                ${x >= 200 ? "sm:right-full sm:mr-6" : "sm:left-full sm:ml-6"}
-                              `}
-                            >
-                              {/* Pointer arrow (Desktop only) */}
-                              {x >= 200 ? (
-                                <div className="hidden sm:block absolute top-1/2 -translate-y-1/2 -right-2 w-3.5 h-3.5 bg-white border-t-3 border-r-3 border-gray-200 rotate-45" />
-                              ) : (
-                                <div className="hidden sm:block absolute top-1/2 -translate-y-1/2 -left-2 w-3.5 h-3.5 bg-white border-b-3 border-l-3 border-gray-200 rotate-45" />
-                              )}
+                          <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9 }}
+                            className={`hidden sm:block absolute z-45 w-72 bg-white/95 backdrop-blur-md border-3 border-gray-200 p-6 rounded-3xl shadow-xl text-center top-1/2 -translate-y-1/2 ${
+                              x >= 200 ? "right-full mr-6" : "left-full ml-6"
+                            }`}
+                          >
+                            {/* Pointer arrow */}
+                            {x >= 200 ? (
+                              <div className="absolute top-1/2 -translate-y-1/2 -right-2 w-3.5 h-3.5 bg-white border-t-3 border-r-3 border-gray-200 rotate-45" />
+                            ) : (
+                              <div className="absolute top-1/2 -translate-y-1/2 -left-2 w-3.5 h-3.5 bg-white border-b-3 border-l-3 border-gray-200 rotate-45" />
+                            )}
 
                             {/* Icon */}
                             <div className="flex justify-center mb-4">
@@ -619,7 +600,6 @@ export default function QuizPage() {
                               </button>
                             )}
                           </motion.div>
-                          </>
                         )}
                       </AnimatePresence>
                     </div>
@@ -637,6 +617,115 @@ export default function QuizPage() {
             </p>
           </footer>
         </div>
+
+        {/* ==========================================
+            MOBILE BOTTOM SHEET (Rendered outside transformed tree)
+           ========================================== */}
+        <AnimatePresence>
+          {selectedQuiz && (() => {
+            const quiz = quizzes.find((q) => q.id === selectedQuiz);
+            if (!quiz) return null;
+            const quizColor = quiz.color || "#6366F1";
+            const isCompleted = quiz.results && quiz.results.length > 0;
+            const quizIndex = quizzes.findIndex(q => q.id === selectedQuiz);
+            const isUnlocked = isQuizUnlocked(quizIndex);
+            const canAttempt = canAttemptQuiz(quiz, quizIndex);
+            const meetsXp = userXp >= (quiz.minXp || 0);
+
+            return (
+              <div className="sm:hidden fixed inset-0 z-[100] flex flex-col justify-end pointer-events-none">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 bg-black/20 backdrop-blur-sm pointer-events-auto"
+                  onClick={() => setSelectedQuiz(null)}
+                />
+                <motion.div
+                  initial={{ y: "100%" }}
+                  animate={{ y: 0 }}
+                  exit={{ y: "100%" }}
+                  transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                  className="relative bg-white/95 backdrop-blur-md border-t-3 border-gray-200 p-6 pb-8 rounded-t-[2rem] shadow-[0_-10px_40px_rgba(0,0,0,0.1)] text-center pointer-events-auto max-h-[85vh] overflow-y-auto"
+                >
+                  <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-6 opacity-50" />
+                  
+                  {/* Icon */}
+                  <div className="flex justify-center mb-4">
+                    <div
+                      className="w-14 h-14 rounded-2xl border-2 border-dashed flex items-center justify-center shadow-sm text-3xl"
+                      style={{ backgroundColor: `${quizColor}10`, borderColor: `${quizColor}40`, color: quizColor }}
+                    >
+                      {quiz.icon || "📚"}
+                    </div>
+                  </div>
+
+                  <h5 className="font-black text-gray-900 text-lg mb-2">{quiz.title}</h5>
+                  <p className="text-gray-500 font-bold text-sm leading-relaxed mb-4">{quiz.description}</p>
+
+                  {/* Stats */}
+                  <div className="space-y-2 mb-4 text-xs font-bold">
+                    <div className="flex items-center justify-between bg-indigo-50 border border-indigo-100 rounded-lg p-2">
+                      <span className="text-indigo-700 flex items-center gap-1.5"><Trophy className="w-4 h-4" /> Reward XP:</span>
+                      <span className="text-indigo-600 font-black">+{quiz.rewardXp || 0}</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-amber-50 border border-amber-100 rounded-lg p-2">
+                      <span className="text-amber-700 flex items-center gap-1.5"><CyberEnergyIcon /> Minimum XP:</span>
+                      <span className="text-amber-600 font-black">{quiz.minXp || 0}</span>
+                    </div>
+                    <div className="flex items-center justify-between border-t border-gray-100 pt-2">
+                      <span className="text-gray-400 flex items-center gap-1.5"><BookOpen className="w-4 h-4" /> Soal:</span>
+                      <span className="text-gray-700">{quiz._count?.questions || 0} pertanyaan</span>
+                    </div>
+
+                    {quiz.timeLimit && (
+                      <div className="flex items-center justify-between">
+                        <span className="text-gray-400 flex items-center gap-1.5"><Clock className="w-4 h-4" /> Waktu:</span>
+                        <span className="text-gray-700">{quiz.timeLimit} menit</span>
+                      </div>
+                    )}
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-400 flex items-center gap-1.5"><Trophy className="w-4 h-4" /> Peserta:</span>
+                      <span className="text-gray-700">{quiz._count?.results || 0} orang</span>
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-400 flex items-center gap-1.5"><CyberEnergyIcon /> Status:</span>
+                      <span className={isCompleted ? "text-emerald-500" : isUnlocked ? "text-indigo-500" : "text-gray-400"}>
+                        {isCompleted ? "✅ Selesai" : isUnlocked ? "🔓 Terbuka" : "🔒 Terkunci"}
+                      </span>
+                    </div>
+
+                    {isCompleted && quiz.results[0] && (
+                      <div className="flex items-center justify-between bg-emerald-50 border border-emerald-200 rounded-lg p-2 mt-3">
+                        <span className="text-emerald-700 font-black text-xs">Skor Terakhir:</span>
+                        <span className="text-emerald-600 font-black text-xl">{quiz.results[0].score}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Action Button */}
+                  {canAttempt ? (
+                    <Link href={`/quiz/${quiz.id}`} className="block w-full mt-2">
+                      <button
+                        style={{ backgroundColor: quizColor, borderBottomColor: quizColor }}
+                        className="duo-btn w-full py-3.5 border-b-4 rounded-xl text-white font-black text-sm hover:brightness-105 shadow-sm"
+                      >
+                        {isCompleted ? "🔄 ULANGI KUIS" : "▶️ MULAI KUIS"}
+                      </button>
+                    </Link>
+                  ) : (
+                    <button className="w-full py-3.5 mt-2 bg-gray-100 text-gray-400 font-black text-sm rounded-xl border-b-4 border-gray-200 cursor-not-allowed">
+                      🔒 TERKUNCI
+                    </button>
+                  )}
+                </motion.div>
+              </div>
+            );
+          })()}
+        </AnimatePresence>
+
       </div>
     </DashboardLayout>
   );

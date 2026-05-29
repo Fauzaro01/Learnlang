@@ -141,10 +141,9 @@ export default function AboutPage() {
          ═══════════════════════════════════ */}
       <section className="border-y border-gray-100 py-12 px-6 bg-gray-50">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-2xl sm:text-3xl font-black text-gray-900 leading-snug">
-            Lebih dari <span className="text-[#6366F1]">2.000+ pelajar</span> sudah melatih grammar mereka
-            bersama Learny — <span className="text-emerald-600">sepenuhnya gratis</span>, tanpa syarat.
-          </p>
+<p className="text-2xl sm:text-3xl font-black text-gray-900 leading-snug">
+  Mulai latih grammar kamu bersama <span className="text-[#6366F1]">Learny</span> dan tingkatkan kemampuan bahasa Inggris dengan cara yang lebih mudah, seru, dan <span className="text-emerald-600">sepenuhnya gratis</span> — tanpa syarat apa pun.
+</p>
           <div className="mt-8 flex flex-wrap justify-center gap-6 text-sm font-bold text-gray-400">
             <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-indigo-400 inline-block"/>Tersedia 24 jam</span>
             <span className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-emerald-400 inline-block"/>Tanpa iklan</span>

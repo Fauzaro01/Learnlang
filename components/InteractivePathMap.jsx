@@ -292,35 +292,25 @@ export default function InteractivePathMap() {
                     </span>
                   )}
                 </button>
-
-                {/* Floating Cyber Glass Pop-up Details */}
+                
+                {/* Floating Cyber Glass Pop-up Details (Desktop Only) */}
                 <AnimatePresence>
                   {isSelected && (
-                    <>
-                      {/* Mobile Backdrop */}
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[90] bg-black/20 backdrop-blur-sm sm:hidden"
-                        onClick={() => setSelectedLevel(null)}
-                      />
-
-                      <motion.div 
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
-                        className={`fixed sm:absolute z-[100] sm:z-45 bottom-4 left-4 right-4 sm:bottom-auto sm:left-auto sm:right-auto sm:w-60 bg-white/95 backdrop-blur-md border-3 border-gray-200 p-5 rounded-3xl shadow-xl text-center sm:top-1/2 sm:-translate-y-1/2 ${
-                          lvl.x >= 200 ? "sm:right-full sm:mr-6" : "sm:left-full sm:ml-6"
-                        }`}
-                      >
-                        {/* Small pointer arrow (Desktop only) */}
-                        {lvl.x >= 200 ? (
-                          <div className="hidden sm:block absolute top-1/2 -translate-y-1/2 -right-2 w-3.5 h-3.5 bg-white border-t-3 border-r-3 border-gray-200 rotate-45" />
-                        ) : (
-                          <div className="hidden sm:block absolute top-1/2 -translate-y-1/2 -left-2 w-3.5 h-3.5 bg-white border-b-3 border-l-3 border-gray-200 rotate-45" />
-                        )}
-                      
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      className={`hidden sm:block absolute z-45 w-60 bg-white/95 backdrop-blur-md border-3 border-gray-200 p-5 rounded-3xl shadow-xl text-center top-1/2 -translate-y-1/2 ${
+                        lvl.x >= 200 ? "right-full mr-6" : "left-full ml-6"
+                      }`}
+                    >
+                      {/* Small pointer arrow */}
+                      {lvl.x >= 200 ? (
+                        <div className="absolute top-1/2 -translate-y-1/2 -right-2 w-3.5 h-3.5 bg-white border-t-3 border-r-3 border-gray-200 rotate-45" />
+                      ) : (
+                        <div className="absolute top-1/2 -translate-y-1/2 -left-2 w-3.5 h-3.5 bg-white border-b-3 border-l-3 border-gray-200 rotate-45" />
+                      )}
+                    
                       <div className="flex justify-center mb-3">
                         <div className={`w-10 h-10 rounded-xl ${lvl.light} border-2 border-dashed flex items-center justify-center shadow-sm`}>
                           {lvl.icon}
@@ -353,8 +343,7 @@ export default function InteractivePathMap() {
                           Kunci Dasar 🔒
                         </button>
                       )}
-                      </motion.div>
-                    </>
+                    </motion.div>
                   )}
                 </AnimatePresence>
                 
@@ -363,6 +352,66 @@ export default function InteractivePathMap() {
           })}
         </div>
       </div>
+
+      {/* ==========================================
+          MOBILE BOTTOM SHEET (Rendered outside transformed tree)
+         ========================================== */}
+      <AnimatePresence>
+        {selectedLevel && (() => {
+          const lvl = levels.find(l => l.id === selectedLevel);
+          if (!lvl) return null;
+          const isActive = lvl.status === "AKTIF";
+          return (
+            <div className="sm:hidden fixed inset-0 z-[100] flex flex-col justify-end pointer-events-none">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-black/20 backdrop-blur-sm pointer-events-auto"
+                onClick={() => setSelectedLevel(null)}
+              />
+              <motion.div
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "100%" }}
+                transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                className="relative bg-white/95 backdrop-blur-md border-t-3 border-gray-200 p-6 pb-8 rounded-t-[2rem] shadow-[0_-10px_40px_rgba(0,0,0,0.1)] text-center pointer-events-auto max-h-[85vh] overflow-y-auto"
+              >
+                <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-6 opacity-50" />
+                <div className="flex justify-center mb-3">
+                  <div className={`w-10 h-10 rounded-xl ${lvl.light} border-2 border-dashed flex items-center justify-center shadow-sm`}>
+                    {lvl.icon}
+                  </div>
+                </div>
+                <h5 className="font-black text-gray-900 text-base mb-1">{lvl.title}</h5>
+                <p className="text-gray-500 font-bold text-sm leading-relaxed mb-4">{lvl.desc}</p>
+                <div className="mb-4 flex items-center justify-between text-xs font-bold border-t border-gray-100 pt-4">
+                  <span className="text-gray-400 flex items-center gap-1.5">
+                    <CyberEnergyIcon /> Daya Core:
+                  </span>
+                  <span className={isActive ? "text-emerald-500" : "text-gray-400"}>
+                    {lvl.energy}
+                  </span>
+                </div>
+                {isActive ? (
+                  <Link href={session ? "/quiz" : "/register"} className="block w-full mt-2">
+                    <button 
+                      style={{ backgroundColor: lvl.color, borderBottomColor: lvl.border }}
+                      className="w-full py-3.5 border-b-4 rounded-xl text-white font-black text-sm hover:brightness-105 active:translate-y-[2px] active:border-b-0 shadow-sm"
+                    >
+                      {session ? "MULAI KUIS ➔" : "DAFTAR & MULAI ➔"}
+                    </button>
+                  </Link>
+                ) : (
+                  <button className="w-full py-3.5 mt-2 bg-gray-100 text-gray-400 font-black text-sm rounded-xl border-b-4 border-gray-200 cursor-not-allowed">
+                    Kunci Dasar 🔒
+                  </button>
+                )}
+              </motion.div>
+            </div>
+          );
+        })()}
+      </AnimatePresence>
 
     </div>
   );

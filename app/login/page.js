@@ -80,7 +80,7 @@ export default function LoginPage() {
             {/* Stats */}
             <div className="mt-8 flex gap-4 justify-center">
               {[
-                { val: "10K+", label: "Pelajar" },
+                { val: "24/7", label: "Support" },
                 { val: "100%", label: "Gratis" },
                 { val: "AI", label: "Powered" },
               ].map((s) => (
