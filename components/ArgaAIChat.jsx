@@ -8,6 +8,8 @@ const QUICK_PROMPTS = [
   "Jelaskan apa itu past tense",
 ];
 
+import AIMascot from "./AIMascot";
+
 function AssistantIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
@@ -114,8 +116,10 @@ export default function ArgaAIChat() {
     <div className="flex h-full min-h-0 flex-col overflow-hidden bg-white font-[family-name:var(--font-nunito)]">
       <div className="px-5 py-4 border-b-4 border-gray-100 bg-white shrink-0">
         <div className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#6366F1] to-[#818CF8] text-white border-2 border-[#6366F1]">
-            <AssistantIcon />
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#E0E7FF] border-2 border-[#6366F1] overflow-hidden shrink-0 relative">
+            <div className="absolute inset-0 flex items-center justify-center scale-[0.25]">
+              <AIMascot mood="neutral" skin="detective" />
+            </div>
           </div>
           <div>
             <h2 className="font-black text-gray-950 text-base leading-tight">

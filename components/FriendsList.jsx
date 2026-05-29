@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useSocket } from "@/lib/socket-provider";
 import { MessageSquare, Search } from "lucide-react";
+import AIMascot from "./AIMascot";
 
 export default function FriendsList({
   conversations,
@@ -168,8 +169,12 @@ export default function FriendsList({
               <div className="flex items-center gap-3">
                 {/* Avatar */}
                 <div className="relative flex-shrink-0">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-green-600 rounded-full flex items-center justify-center overflow-hidden">
-                    {conv.friend.avatar ? (
+                  <div className={`w-12 h-12 ${conv.friendId === "__arga_ai__" ? "bg-[#EEF2FF] border-2 border-[#6366F1]" : "bg-gradient-to-br from-primary to-green-600"} rounded-full flex items-center justify-center overflow-hidden relative`}>
+                    {conv.friendId === "__arga_ai__" ? (
+                      <div className="absolute inset-0 flex items-center justify-center scale-[0.25]">
+                        <AIMascot mood="neutral" skin="detective" />
+                      </div>
+                    ) : conv.friend.avatar ? (
                       <Image
                         src={conv.friend.avatar}
                         alt={conv.friend.name}
