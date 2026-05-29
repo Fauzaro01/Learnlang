@@ -1027,7 +1027,7 @@ export default function DashboardLayout({ children }) {
                     </div>
                     <div>
                       <div className="text-xl font-black text-amber-500 leading-none">
-                        {loading ? "..." : stats?.streak || 0}
+                        {loading ? <div className="w-6 h-5 bg-amber-200/50 rounded animate-pulse inline-block"></div> : stats?.streak || 0}
                       </div>
                       <div className="text-[9px] font-bold text-gray-400 uppercase tracking-wider mt-0.5">
                         Hari Streak
@@ -1042,7 +1042,7 @@ export default function DashboardLayout({ children }) {
                     <div>
                       <div className="text-xl font-black text-[#1CB0F6] leading-none">
                         {loading
-                          ? "..."
+                          ? <div className="w-8 h-5 bg-sky-200/50 rounded animate-pulse inline-block"></div>
                           : `${stats?.energy?.current || 0}/${stats?.energy?.max || 5}`}
                       </div>
                       <div className="text-[9px] font-bold text-gray-400 uppercase tracking-wider mt-0.5">
@@ -1062,8 +1062,8 @@ export default function DashboardLayout({ children }) {
                         <h3 className="font-black text-gray-800 text-[13px] leading-none">
                           Tingkat Saat Ini
                         </h3>
-                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider mt-1">
-                          {loading ? "Memuat..." : stats?.currentTier || "Belum ada tier"}
+                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-wider mt-1 flex items-center h-3">
+                          {loading ? <span className="w-16 h-2 bg-gray-200 rounded animate-pulse inline-block"></span> : stats?.currentTier || "Belum ada tier"}
                         </p>
                       </div>
                     </div>
@@ -1221,7 +1221,7 @@ export default function DashboardLayout({ children }) {
                             type="button"
                             onClick={() => handleFollow(user.id)}
                             disabled={followingUserIds.includes(user.id)}
-                            className="px-3 py-1.5 bg-[#EEF2FF] text-[#6366F1] border-2 border-[#C7D2FE] font-black text-[10px] rounded-lg hover:bg-[#E0E7FF] transition-colors shrink-0 disabled:opacity-60 disabled:cursor-not-allowed"
+                            className="px-3 py-1.5 bg-[#EEF2FF] text-[#6366F1] border-2 border-[#C7D2FE] font-black text-[10px] rounded-lg hover:bg-[#E0E7FF] transition-all duration-200 active:scale-95 shrink-0 disabled:opacity-60 disabled:cursor-not-allowed"
                           >
                             {followingUserIds.includes(user.id)
                               ? "Menyimpan..."
@@ -1297,58 +1297,79 @@ export default function DashboardLayout({ children }) {
               <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-amber-50 border-2 border-amber-200 rounded-xl">
                 <StatusFlame size={16} />
                 <span className="text-xs font-black text-amber-500">
-                  {loading ? "..." : stats?.streak ?? 0}
+                  {loading ? <span className="w-4 h-3 bg-amber-200/50 rounded animate-pulse inline-block"></span> : stats?.streak ?? 0}
                 </span>
               </div>
               <div className="flex items-center gap-1.5 px-2.5 py-1.5 bg-sky-50 border-2 border-sky-200 rounded-xl">
                 <StatusBattery size={16} />
                 <span className="text-xs font-black text-sky-500">
-                  {loading ? "..." : stats?.energy?.current ?? 0}
+                  {loading ? <span className="w-4 h-3 bg-sky-200/50 rounded animate-pulse inline-block"></span> : stats?.energy?.current ?? 0}
                 </span>
               </div>
             </div>
           </header>
 
           {/* Page Content */}
-          <main className="flex-1 flex flex-col">{children}</main>
+          <main className="flex-1 flex flex-col pb-24 md:pb-0">{children}</main>
         </div>
 
         {/* ═══════════════════════════════════════════
-          MOBILE BOTTOM NAV
+          MOBILE BOTTOM NAV (Floating Glass Pill)
          ═══════════════════════════════════════════ */}
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t-2 border-gray-100 shadow-[0_-4px_24px_rgba(99,102,241,0.10)] pb-safe">
-          <div className="flex justify-between items-center px-2 py-1.5 overflow-x-auto no-scrollbar">
-            {MOBILE_NAV.map(({ href, label, Icon, accent, bg }) => {
-              const active = isActive(href);
-              return (
-                <Link
-                  key={href}
-                  href={href}
-                  className="flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-2xl transition-all duration-150 min-w-[52px]"
-                  style={active ? { color: accent } : { color: "#9CA3AF" }}
-                >
-                  <div
-                    className={`relative p-1.5 rounded-xl transition-all ${active ? "scale-110" : ""}`}
+        <div 
+          className="md:hidden fixed z-[60] left-4 right-4 pointer-events-none"
+          style={{ bottom: 'calc(1rem + env(safe-area-inset-bottom))' }}
+        >
+          <nav className="pointer-events-auto bg-white/70 backdrop-blur-2xl border border-white/80 shadow-[0_16px_40px_-12px_rgba(99,102,241,0.3)] rounded-[2rem] overflow-hidden">
+            <div className="flex justify-between items-center px-1.5 py-1.5 overflow-x-auto no-scrollbar relative touch-pan-x">
+              {MOBILE_NAV.map(({ href, label, Icon, accent, bg }) => {
+                const active = isActive(href);
+                return (
+                  <Link
+                    key={href}
+                    href={href}
+                    className={`group relative flex items-center justify-center p-2 rounded-[1.5rem] transition-all duration-500 ease-out shrink-0 ${
+                      active ? "px-4 shadow-sm" : "w-12 hover:bg-white/40"
+                    }`}
                     style={active ? { background: bg } : {}}
                   >
-                    <Icon active={active} />
+                    <div className="relative z-10 shrink-0 flex items-center justify-center">
+                      <Icon active={active} />
+                      {/* Ambient glow behind active icon */}
+                      {active && (
+                        <div 
+                          className="absolute inset-0 blur-md opacity-30 rounded-full"
+                          style={{ background: accent }}
+                        />
+                      )}
+                    </div>
+                    
+                    <div 
+                      className={`overflow-hidden transition-all duration-500 ease-out flex items-center ${
+                        active ? "max-w-[120px] ml-2 opacity-100" : "max-w-0 ml-0 opacity-0"
+                      }`}
+                    >
+                      <span 
+                        className="text-[11px] font-black tracking-wide whitespace-nowrap"
+                        style={{ color: active ? accent : "#9CA3AF" }}
+                      >
+                        {label}
+                      </span>
+                    </div>
+
+                    {/* Active highlight dot */}
                     {active && (
                       <span
-                        className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full border-2 border-white animate-pulse"
+                        className="absolute top-1 right-2 w-1.5 h-1.5 rounded-full animate-pulse"
                         style={{ background: accent }}
                       />
                     )}
-                  </div>
-                  <span
-                    className={`text-[8px] font-black uppercase tracking-wider ${active ? "opacity-100" : "opacity-60"}`}
-                  >
-                    {label}
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-        </nav>
+                  </Link>
+                );
+              })}
+            </div>
+          </nav>
+        </div>
       </div>
     </DashboardLayoutContext.Provider>
   );

@@ -100,7 +100,7 @@ const COLOR_MAP = {
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ mobileOpen, setMobileOpen }) {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [collapsed, setCollapsed] = useState(false);
@@ -109,14 +109,37 @@ export default function AdminSidebar() {
     href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
 
   return (
-    <aside
-      className="sticky top-0 h-screen flex flex-col bg-white border-r-4 border-gray-100 transition-all duration-300 font-[family-name:var(--font-nunito)] shrink-0"
-      style={{ width: collapsed ? 72 : 240 }}
-    >
-      {/* Collapse toggle */}
-      <button
-        onClick={() => setCollapsed((c) => !c)}
-        className="absolute -right-4 top-6 z-10 bg-white border-2 border-gray-200 rounded-full w-8 h-8 flex items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
+    <>
+      {/* Mobile Overlay */}
+      {mobileOpen && (
+        <div 
+          className="md:hidden fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-40 transition-opacity"
+          onClick={() => setMobileOpen?.(false)}
+        />
+      )}
+
+      <aside
+        className={`
+          fixed md:sticky top-0 left-0 h-screen z-50 flex flex-col bg-white border-r-4 border-gray-100 transition-transform duration-300 font-[family-name:var(--font-nunito)] shrink-0
+          ${mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+        `}
+        style={{ width: collapsed ? 72 : 240 }}
+      >
+        {/* Mobile close button */}
+        <button
+          onClick={() => setMobileOpen?.(false)}
+          className="md:hidden absolute top-4 right-4 p-2 text-gray-400 hover:bg-gray-100 rounded-xl"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        {/* Collapse toggle (Desktop only) */}
+        <button
+          onClick={() => setCollapsed((c) => !c)}
+          className="hidden md:flex absolute -right-4 top-6 z-10 bg-white border-2 border-gray-200 rounded-full w-8 h-8 items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
         title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
       >
         <IconChevron collapsed={collapsed} />
@@ -234,5 +257,6 @@ export default function AdminSidebar() {
         </button>
       </div>
     </aside>
+    </>
   );
 }
