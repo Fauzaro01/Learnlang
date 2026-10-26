@@ -85,7 +85,9 @@ export default function ArgaAIChat() {
 
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data?.error || "Gagal terhubung ke Arga AI");
+        throw new Error(
+          data?.error || data?.message || "Gagal terhubung ke Arga AI",
+        );
       }
 
       setMessages((current) => [
