@@ -1,0 +1,68 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: learnlang_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootsecret}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-learnlang}
+      MYSQL_USER: ${MYSQL_USER:-learnlang}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-learnlang123}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-rootsecret}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - learnlang_network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: learnlang_app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: mysql://${MYSQL_USER:-learnlang}:${MYSQL_PASSWORD:-learnlang123}@mysql:3306/${MYSQL_DATABASE:-learnlang}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-supersecretkey_please_change_in_production_123456789}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://ollama:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:1.5b}
+    volumes:
+      - uploads_data:/app/public/uploads
+    networks:
+      - learnlang_network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: learnlang_ollama
+    restart: unless-stopped
+    profiles:
+      - ai
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - learnlang_network
+
+volumes:
+  mysql_data:
+  uploads_data:
+  ollama_data:
+
+networks:
+  learnlang_network:
+    driver: bridge
