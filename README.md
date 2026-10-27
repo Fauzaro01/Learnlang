@@ -42,17 +42,26 @@ npm run db:seed
 - 50+ A1 vocabulary questions across categories: numbers, colors, body parts, furniture, family, animals, food, professions, transport, clothing, weather, rooms, nature
 - All questions optimized for true beginner (A1) level learning
 
-### 3. Setup Ollama (untuk AI evaluation)
+### 3. Setup AI Gateway (9Router)
+
+Jalankan 9Router lokal atau gunakan endpoint 9Router Anda:
 
 ```bash
-# Download & jalankan Ollama
-ollama pull gemma2:2b
-ollama serve
+# Default 9Router berjalan di: http://localhost:20128
+# Dashboard & API keys: http://localhost:20128
 ```
+
+*(Opsional: Jika ingin tetap menggunakan Ollama secara lokal, set `AI_PROVIDER=ollama` di `.env`)*
 
 ### 4. Setup Environment Variables
 
-Buat file `.env.local`:
+Salin `.env.example` ke `.env`:
+
+```bash
+cp .env.example .env
+```
+
+Sesuaikan konfigurasi environment:
 
 ```env
 # NextAuth
@@ -62,8 +71,11 @@ NEXTAUTH_SECRET=your-secret-key-here
 # Database
 DATABASE_URL=mysql://user:password@localhost:3306/learnlang
 
-# Ollama (optional, untuk AI)
-OLLAMA_API_URL=http://localhost:11434
+# AI Provider (9Router)
+AI_PROVIDER=9router
+NINEROUTER_BASE_URL=http://localhost:20128/v1
+NINEROUTER_API_KEY=your-api-key-here
+NINEROUTER_MODEL=openai/gpt-4o-mini
 ```
 
 ### 5. Jalankan Aplikasi
@@ -138,7 +150,7 @@ The learning system now uses persistent session architecture for better tracking
 - **Database**: MySQL + Prisma
 - **Auth**: NextAuth.js
 - **Real-Time**: Socket.IO
-- **AI Model**: Gemma2:2b (Ollama)
+- **AI Gateway**: 9Router (OpenAI-compatible smart router, fallback ke Ollama didukung)
 - **UI**: Shadcn/UI + Tailwind CSS
 - **Animation**: Framer Motion
 
