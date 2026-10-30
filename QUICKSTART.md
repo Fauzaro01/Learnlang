@@ -4,18 +4,20 @@ Panduan cepat untuk langsung menggunakan aplikasi LernLang.
 
 ## ⚡ Super Quick Start (5 Menit)
 
-### Step 1: Install Ollama (2 menit)
+### Step 1: Jalankan 9Router (atau Ollama)
 
 ```bash
-# Windows: Download dari https://ollama.ai/download dan install
-# Atau gunakan command berikut di PowerShell (sebagai Admin):
-winget install Ollama.Ollama
+# Pastikan 9Router berjalan pada port default:
+# http://localhost:20128
 ```
 
-### Step 2: Download Model (2 menit)
+*(Jika menggunakan Ollama secara lokal, set `AI_PROVIDER=ollama` di `.env`)*
+
+### Step 2: Konfigurasi Environment (.env)
 
 ```bash
-ollama pull gemma2:2b
+cp .env.example .env
+# Isi NINEROUTER_BASE_URL (default http://localhost:20128/v1) dan NINEROUTER_API_KEY jika diperlukan
 ```
 
 ### Step 3: Install Dependencies (30 detik)
@@ -27,10 +29,6 @@ npm install
 ### Step 4: Jalankan Aplikasi (10 detik)
 
 ```bash
-# Terminal 1: Jalankan Ollama
-ollama serve
-
-# Terminal 2: Jalankan Aplikasi
 npm run dev
 ```
 
@@ -41,10 +39,9 @@ Akses: http://localhost:3000
 ## ✅ Checklist Sebelum Mulai
 
 - [ ] Node.js terinstall (`node --version` untuk cek)
-- [ ] Ollama terinstall (`ollama --version` untuk cek)
-- [ ] Model gemma2:2b terdownload (`ollama list` untuk cek)
-- [ ] Dependencies npm terinstall
-- [ ] Ollama service berjalan di background
+- [ ] 9Router (atau Ollama) berjalan di background
+- [ ] Environment variable `NINEROUTER_BASE_URL` atau `OLLAMA_BASE_URL` terkonfigurasi
+- [ ] Dependencies npm terinstall (`npm install`)
 
 ## 🎯 Cara Pakai Aplikasi
 
@@ -66,19 +63,17 @@ Akses: http://localhost:3000
 
 ## 🐛 Troubleshooting Cepat
 
-### Error: "Failed to generate sentence"
+### Error: "Gagal terhubung ke 9Router"
 
 ```bash
-# Cek Ollama berjalan
-ollama serve
+# Pastikan 9Router berjalan di port 20128:
+# Buka http://localhost:20128 di browser
 ```
 
-### Error: "Model not found"
+### Error: "Model tidak ditemukan di 9Router"
 
-```bash
-# Download model
-ollama pull gemma2:2b
-```
+- Periksa format model pada `.env` (misal `NINEROUTER_MODEL=openai/gpt-4o-mini` atau combo yang telah dibuat di 9Router).
+- Pastikan provider atau API key untuk model tersebut sudah dikonfigurasi di dashboard 9Router.
 
 ### Port 3000 sudah digunakan
 
@@ -87,35 +82,18 @@ ollama pull gemma2:2b
 npm run dev -- -p 3001
 ```
 
-### Aplikasi lambat
-
-- Pastikan hanya 1 instance Ollama yang berjalan
-- Close aplikasi berat lainnya
-- Model pertama kali butuh waktu "warm up"
-
 ## 📝 Tips & Tricks
 
-1. **Warm Up Model** (untuk response lebih cepat):
+1. **Test 9Router Gateway**:
+   Buka http://localhost:20128 - dashboard 9Router dapat diakses untuk memantau request dan token usage.
 
-   ```bash
-   ollama run gemma2:2b
-   # Ketik sesuatu, tunggu response, lalu exit dengan /bye
-   ```
-
-2. **Keep Ollama Running**:
-   Biarkan `ollama serve` tetap berjalan di background.
-
-3. **Test Ollama**:
-   Buka http://localhost:11434 - jika muncul "Ollama is running", berarti OK!
-
-4. **Multi-tab**:
+2. **Multi-tab**:
    Buka aplikasi di beberapa tab untuk latihan lebih banyak.
 
 ## 📚 Resource Tambahan
 
 - [README.md](./README.md) - Dokumentasi lengkap
-- [OLLAMA_SETUP.md](./OLLAMA_SETUP.md) - Setup Ollama detail
-- [Ollama Docs](https://github.com/ollama/ollama) - Dokumentasi resmi Ollama
+- [9Router GitHub](https://github.com/decolua/9router) - Dokumentasi resmi 9Router
 
 ## 🎨 Fitur UI
 
