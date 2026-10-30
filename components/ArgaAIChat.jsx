@@ -9,6 +9,7 @@ const QUICK_PROMPTS = [
 ];
 
 import AIMascot from "./AIMascot";
+import MarkdownMessage from "./MarkdownMessage";
 
 function AssistantIcon() {
   return (
@@ -41,7 +42,11 @@ function Bubble({ role, content }) {
             : "rounded-bl-md bg-white text-gray-800 border border-gray-200"
         }`}
       >
-        <div className="whitespace-pre-wrap">{content}</div>
+        {isUser ? (
+          <div className="whitespace-pre-wrap">{content}</div>
+        ) : (
+          <MarkdownMessage content={content} />
+        )}
       </div>
     </div>
   );
