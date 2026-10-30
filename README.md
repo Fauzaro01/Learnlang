@@ -15,6 +15,25 @@ Aplikasi web modern untuk belajar bahasa Inggris melalui latihan terjemahan yang
 
 ## 🚀 Quick Start
 
+### Opsi A: Menggunakan Docker Compose (Paling Praktis)
+
+Cukup satu perintah untuk menjalankan database MySQL dan aplikasi:
+
+```bash
+# Di Windows (PowerShell)
+.\run.ps1 up
+
+# Di Linux / macOS / Git Bash
+chmod +x run.sh && ./run.sh up
+```
+
+Aplikasi langsung online di [http://localhost:3000](http://localhost:3000) dengan database ter-migrasi dan terisi data contoh (seed) secara otomatis.
+Untuk dokumentasi lengkap Docker, baca **[DOCKER.md](./DOCKER.md)**.
+
+---
+
+### Opsi B: Setup Manual (Node.js & MySQL Lokal)
+
 ### 1. Instalasi
 
 ```bash
