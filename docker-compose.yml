@@ -8,14 +8,15 @@ services:
     depends_on:
       - 9router
     ports:
-      - "${PORT:-3000}:3000"
+      # Bind ke localhost internal saja untuk di-reverse proxy oleh Nginx aaPanel
+      - "127.0.0.1:${PORT:-3000}:3000"
     extra_hosts:
       - "host.docker.internal:host-gateway"
     environment:
       NODE_ENV: production
       PORT: 3000
       DATABASE_URL: ${DATABASE_URL:-mysql://learnlangdb:YYdMBeZ8HbSCE6eP@host.docker.internal:3306/learnlangdb}
-      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3000}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-https://learnlang.web.id}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-supersecretkey_please_change_in_production_123456789}
       AI_PROVIDER: ${AI_PROVIDER:-9router}
       NINEROUTER_BASE_URL: ${NINEROUTER_BASE_URL:-http://9router:20128/v1}
@@ -35,7 +36,8 @@ services:
     container_name: learnlang_9router
     restart: unless-stopped
     ports:
-      - "${NINEROUTER_PORT:-20128}:20128"
+      # Bind ke localhost internal (bisa diakses via SSH tunnel atau reverse proxy aaPanel jika ingin dashboard)
+      - "127.0.0.1:${NINEROUTER_PORT:-20128}:20128"
     volumes:
       - ninerouter_data:/data
     networks:
