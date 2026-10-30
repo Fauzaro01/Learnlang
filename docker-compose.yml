@@ -32,7 +32,7 @@ services:
       - learnlang_network
 
   9router:
-    image: ${NINEROUTER_IMAGE:-ghcr.io/fmaclen/9router:latest}
+    image: ${NINEROUTER_IMAGE:-ghcr.io/decolua/9router:0.5.112}
     container_name: learnlang_9router
     restart: unless-stopped
     ports:
