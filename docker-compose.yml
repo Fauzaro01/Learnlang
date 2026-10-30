@@ -35,6 +35,8 @@ services:
     image: ${NINEROUTER_IMAGE:-ghcr.io/decolua/9router:0.5.112}
     container_name: learnlang_9router
     restart: unless-stopped
+    environment:
+      INITIAL_PASSWORD: ${INITIAL_PASSWORD:-Admin12345!@#}
     ports:
       # Bind ke localhost internal (bisa diakses via SSH tunnel atau reverse proxy aaPanel jika ingin dashboard)
       - "127.0.0.1:${NINEROUTER_PORT:-20128}:20128"
